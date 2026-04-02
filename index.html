@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>CLAIA — Personal Shopper IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--cr:#FAF8F5;--ch:#1A1A1A;--ca:#C4956A;--cm:#8A7E72;--cb:rgba(26,26,26,.1);--cw:#fff}
+body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--ch)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem 0;border-bottom:.5px solid var(--cb);background:var(--cr);position:sticky;top:0;z-index:100}
+.logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;letter-spacing:.3em;cursor:pointer}
+.logo em{color:var(--ca);font-style:italic}
+.nt{font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:.9rem 1.2rem;cursor:pointer;color:var(--cm);border:none;border-bottom:2px solid transparent;background:none;font-family:'Jost',sans-serif;transition:all .15s}
+.nt.on{color:var(--ch);border-bottom-color:var(--ch)}
+.srch{display:flex;align-items:center;gap:10px;background:var(--cw);border:.5px solid var(--cb);padding:.8rem 1.2rem;margin:1.5rem 2.5rem 0}
+.srch input{flex:1;border:none;background:transparent;font-family:'Jost',sans-serif;font-size:13px;color:var(--ch);outline:none}
+.srch input::placeholder{color:var(--cm);font-style:italic}
+.sb{font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:.5rem 1.2rem;background:var(--ch);color:var(--cw);border:none;cursor:pointer;font-family:'Jost',sans-serif}
+.body{padding:1.5rem 2.5rem 4rem}
+.hidden{display:none!important}
+.eye{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--ca);margin-bottom:.3rem}
+.ttl{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;line-height:1.1;margin-bottom:.3rem}
+.sub{font-size:12px;color:var(--cm);font-weight:300;margin-bottom:1.8rem}
+.divider{height:.5px;background:var(--cb);margin:1.2rem 0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.3rem}
+.fl label{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--cm);margin-bottom:.5rem}
+.fl select{width:100%;background:var(--cw);border:.5px solid var(--cb);padding:.6rem .8rem;font-family:'Jost',sans-serif;font-size:12px;color:var(--ch);appearance:none}
+.bval{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;margin-top:.3rem}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{padding:.3rem .75rem;font-size:10px;font-family:'Jost',sans-serif;background:var(--cw);border:.5px solid var(--cb);border-radius:20px;cursor:pointer;color:var(--cm);transition:all .12s}
+.chip.on{background:var(--ch);color:var(--cw);border-color:var(--ch)}
+.cbar{display:flex;justify-content:flex-end;gap:.8rem;padding-top:1.3rem;border-top:.5px solid var(--cb)}
+.btnp{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:.75rem 2.2rem;background:var(--ch);color:var(--cw);border:none;cursor:pointer}
+.btng{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:.75rem 1.5rem;background:transparent;color:var(--cm);border:.5px solid var(--cb);cursor:pointer}
+.mg{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem}
+.mo{cursor:pointer;border:1.5px solid transparent;transition:all .15s;text-align:center}
+.mo:hover{border-color:var(--cm)}
+.mo.on{border-color:var(--ca)}
+.mo img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:top;display:block}
+.mo-lbl{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--cm);padding:3px 0}
+.mo.on .mo-lbl{color:var(--ca)}
+.cin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:1.2rem}
+.cc{background:var(--cw);border:.5px solid var(--cb);padding:1rem;cursor:pointer;transition:all .15s;text-align:center}
+.cc:hover{transform:translateY(-2px);border-color:var(--ch)}
+.cc.on{border-color:var(--ca);background:#FBF8F4}
+.cdot{width:10px;height:10px;border-radius:50%;margin:0 auto .6rem}
+.cf{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;margin-bottom:.2rem}
+.cch{font-size:9px;color:var(--cm);letter-spacing:.1em;text-transform:uppercase}
+.cer{font-size:9px;color:var(--ca);margin-top:.2rem}
+.ctx{background:var(--cw);border:.5px solid var(--cb);padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between}
+.ctx-txt{font-size:12px;color:var(--cm)}
+.ctx-txt strong{color:var(--ch);font-weight:500}
+.hl{display:grid;grid-template-columns:300px 1fr;gap:2rem;margin-bottom:2.5rem;align-items:start}
+.hw{background:var(--cw);border:.5px solid var(--ca)}
+.hw img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block;transition:opacity .2s}
+.hw img.fading{opacity:.3}
+.badge{background:var(--ca);color:var(--cw);font-size:8px;letter-spacing:.2em;text-transform:uppercase;padding:.35rem .8rem;display:inline-block;margin-bottom:.8rem}
+.hname{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;font-style:italic;margin-bottom:.3rem}
+.hsub{font-size:11px;color:var(--cm);margin-bottom:1rem}
+.mstrip{display:flex;gap:.4rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.mstrip-lbl{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--cm)}
+.msb{font-size:9px;padding:.25rem .6rem;background:transparent;border:.5px solid var(--cb);cursor:pointer;font-family:'Jost',sans-serif;color:var(--cm);transition:all .12s}
+.msb.on{background:var(--ch);color:var(--cw);border-color:var(--ch)}
+.plist{display:flex;flex-direction:column;gap:1rem}
+.pc{background:var(--cw);border:.5px solid var(--cb);padding:1rem}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
+.pcat{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--ca)}
+.pprice{font-family:'Cormorant Garamond',serif;font-size:15px}
+.pname{font-size:12px;font-weight:500;margin-bottom:.1rem}
+.pbrand{font-size:10px;color:var(--cm);margin-bottom:.7rem}
+.alt-lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--cm);margin-bottom:.4rem}
+.car{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.car::-webkit-scrollbar{display:none}
+.ci{flex-shrink:0;width:72px;cursor:pointer;border:1.5px solid transparent;transition:border-color .12s}
+.ci.on{border-color:var(--ch)}
+.ci img{width:72px;height:72px;object-fit:cover;display:block}
+.ci-lbl{font-size:8px;color:var(--cm);text-align:center;padding:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.addbtn{margin-top:.7rem;width:100%;font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:.5rem;background:transparent;border:.5px solid var(--ch);color:var(--ch);cursor:pointer;font-family:'Jost',sans-serif;transition:all .12s}
+.addbtn:hover{background:var(--ch);color:var(--cw)}
+.tbar{display:flex;align-items:center;justify-content:space-between;padding:1rem;background:var(--cw);border:.5px solid var(--cb)}
+.t-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--cm)}
+.t-amt{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300}
+.og{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.ot{cursor:pointer;border:1px solid transparent;transition:all .12s;background:var(--cw)}
+.ot:hover{border-color:var(--ch)}
+.ot img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block}
+.ot-info{padding:.4rem .5rem}
+.ot-name{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic}
+.ot-sub{font-size:8px;color:var(--cm)}
+.vs-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;align-items:start}
+.dropzone{border:1px dashed var(--cb);background:var(--cw);padding:2.5rem 1.5rem;text-align:center;cursor:pointer;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.dropzone.filled{padding:0;border:1.5px solid var(--ca)}
+.dropzone.filled img{width:100%;max-height:280px;object-fit:contain;display:block}
+.dz-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;margin-bottom:.3rem}
+.dz-sub{font-size:11px;color:var(--cm);margin-bottom:1rem}
+.dz-btn{font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:.5rem 1.2rem;background:var(--ch);color:var(--cw);border:none;cursor:pointer;font-family:'Jost',sans-serif}
+.dz-change{font-size:9px;color:var(--cm);background:var(--cw);border:.5px solid var(--cb);padding:.3rem .7rem;cursor:pointer;font-family:'Jost',sans-serif;position:absolute;bottom:8px;right:8px;display:none}
+.vs-filters{background:var(--cw);border:.5px solid var(--cb);padding:1.2rem}
+.vs-ftitle{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ca);margin-bottom:1rem}
+.vs-fg{margin-bottom:1rem}
+.vs-fg label{display:block;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--cm);margin-bottom:.4rem}
+.vs-chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.vs-chip{padding:.25rem .65rem;font-size:10px;font-family:'Jost',sans-serif;background:var(--cr);border:.5px solid var(--cb);border-radius:20px;cursor:pointer;color:var(--cm);transition:all .12s}
+.vs-chip.on{background:var(--ch);color:var(--cw);border-color:var(--ch)}
+.vs-sbtn{width:100%;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:.75rem;background:var(--ch);color:var(--cw);border:none;cursor:pointer;font-family:'Jost',sans-serif;margin-top:.5rem}
+.vs-loading{text-align:center;padding:2rem}
+.vs-loading p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--cm)}
+.vs-rg{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.vs-card{background:var(--cw);border:.5px solid var(--cb);cursor:pointer;transition:all .15s}
+.vs-card:hover{border-color:var(--ch);transform:translateY(-2px)}
+.vs-card img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block}
+.vs-card-info{padding:.6rem .7rem}
+.vs-match{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ca);margin-bottom:.2rem}
+.vs-cname{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic}
+.vs-cprice{font-family:'Cormorant Garamond',serif;font-size:14px;margin-top:.3rem}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo" id="logo">CLAI<em>A</em></div>
+  <div style="display:flex">
+    <button class="nt on" id="nt-d">Découvrir</button>
+    <button class="nt" id="nt-v">Recherche visuelle</button>
+    <button class="nt" id="nt-c">Style Icons</button>
+    <button class="nt" id="nt-r">Ma sélection</button>
+  </div>
+  <div style="font-size:10px;color:var(--cm);letter-spacing:.1em">Personal Shopper IA</div>
+</nav>
+
+<div class="srch">
+  <svg style="width:16px;height:16px;flex-shrink:0;opacity:.35" viewBox="0 0 16 16" fill="none" stroke="#1A1A1A" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5L14 14" stroke-linecap="round"/></svg>
+  <input type="text" id="srch" placeholder="Décrivez vos envies… ex: tenue élégante pour un dîner à Paris">
+  <button class="sb" id="sbtn">Chercher</button>
+</div>
+
+<div class="body">
+
+<!-- DECOUVRIR -->
+<div id="tab-d">
+  <div class="eye">Votre profil style</div>
+  <div class="ttl">Découvrir</div>
+  <div class="sub">Personnalisez pour des recommandations sur mesure</div>
+  <div class="g2">
+    <div class="fl">
+      <label>Budget par tenue</label>
+      <input type="range" min="50" max="1000" step="25" value="300" style="width:100%" id="budget">
+      <div class="bval" id="bval">€300</div>
+    </div>
+    <div class="fl">
+      <label>Occasion</label>
+      <select id="sel-occ">
+        <option value="all">Toutes occasions</option>
+        <option value="casual">Quotidien / Week-end</option>
+        <option value="work">Travail / Chic</option>
+        <option value="evening">Soirée / Formel</option>
+      </select>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="fl" style="margin-bottom:1.2rem">
+    <label>Votre morphologie</label>
+    <div class="mg" id="mg">
+      <div class="mo on" data-m="slim"><img id="mi-slim" src="" alt=""><div class="mo-lbl">Élancée</div></div>
+      <div class="mo" data-m="athletic"><img id="mi-athletic" src="" alt=""><div class="mo-lbl">Athlétique</div></div>
+      <div class="mo" data-m="curvy"><img id="mi-curvy" src="" alt=""><div class="mo-lbl">Courbes</div></div>
+      <div class="mo" data-m="petite"><img id="mi-petite" src="" alt=""><div class="mo-lbl">Petite</div></div>
+      <div class="mo" data-m="tall"><img id="mi-tall" src="" alt=""><div class="mo-lbl">Grande</div></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="fl" style="margin-bottom:1rem">
+    <label>Styles préférés</label>
+    <div class="chips" id="style-chips">
+      <button class="chip on" data-s="minimal">Minimaliste</button>
+      <button class="chip on" data-s="parisian">Parisien chic</button>
+      <button class="chip" data-s="casual">Casual luxe</button>
+      <button class="chip" data-s="street">Streetwear</button>
+      <button class="chip" data-s="boheme">Bohème</button>
+      <button class="chip" data-s="tailored">Tailored</button>
+      <button class="chip" data-s="romantic">Romantique</button>
+      <button class="chip" data-s="avantgarde">Avant-garde</button>
+    </div>
+  </div>
+  <div class="fl" style="margin-bottom:1.5rem">
+    <label>Couleurs à éviter</label>
+    <div class="chips" id="avoid-chips">
+      <button class="chip">Marron</button>
+      <button class="chip">Orange</button>
+      <button class="chip">Jaune vif</button>
+      <button class="chip">Rose fluo</button>
+      <button class="chip">Violet</button>
+      <button class="chip">Rouge</button>
+    </div>
+  </div>
+  <div class="cbar">
+    <button class="btng" id="reset-btn">Réinitialiser</button>
+    <button class="btnp" id="gen-btn">Générer mes tenues →</button>
+  </div>
+</div>
+
+<!-- RECHERCHE VISUELLE -->
+<div id="tab-v" class="hidden">
+  <div class="eye">Intelligence visuelle</div>
+  <div class="ttl">Recherche par image</div>
+  <div class="sub">Soumettez une photo d'une tenue qui vous inspire — notre IA propose des alternatives dans votre budget.</div>
+  <div class="vs-wrap">
+    <div>
+      <div class="dropzone" id="dz">
+        <div class="dz-title">Glissez votre photo ici</div>
+        <div class="dz-sub">JPG, PNG, WEBP</div>
+        <button class="dz-btn" id="dz-btn">Choisir une photo</button>
+        <input type="file" id="file-inp" accept="image/*" style="display:none">
+        <img id="dz-preview" src="" alt="" style="display:none">
+        <button class="dz-change" id="dz-change">Changer</button>
+      </div>
+    </div>
+    <div class="vs-filters">
+      <div class="vs-ftitle">Affiner la recherche</div>
+      <div class="vs-fg"><label>Type</label><div class="vs-chips" id="vs-type"><button class="vs-chip on">Tenue complète</button><button class="vs-chip">Haut</button><button class="vs-chip">Bas</button><button class="vs-chip">Chaussures</button></div></div>
+      <div class="vs-fg"><label>Catégorie</label><div class="vs-chips"><button class="vs-chip on">Blazer</button><button class="vs-chip">Chemise</button><button class="vs-chip">Pantalon</button><button class="vs-chip">Jupe</button><button class="vs-chip">Chaussures</button></div></div>
+      <div class="vs-fg"><label>Style</label><div class="vs-chips"><button class="vs-chip on">Même style</button><button class="vs-chip">Plus habillé</button><button class="vs-chip">Plus casual</button></div></div>
+      <div class="vs-fg">
+        <label>Budget max</label>
+        <div style="display:flex;align-items:center;gap:10px"><input type="range" min="50" max="800" step="25" value="400" style="flex:1" id="vs-budget"><span style="font-family:'Cormorant Garamond',serif;font-size:14px" id="vs-bval">€400</span></div>
+      </div>
+      <button class="vs-sbtn" id="vs-sbtn">Lancer la recherche →</button>
+    </div>
+  </div>
+  <div id="vs-area" class="hidden">
+    <div id="vs-load" class="vs-loading"><p id="vs-ltxt">Analyse en cours...</p></div>
+    <div id="vs-res" class="hidden">
+      <div style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--ca);margin:1.5rem 0 1rem;padding-top:1.5rem;border-top:.5px solid var(--cb)" id="vs-rlbl">4 tenues similaires</div>
+      <div class="vs-rg" id="vs-rg"></div>
+    </div>
+  </div>
+  <div id="vs-empty" style="text-align:center;padding:3rem;color:var(--cm)">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;font-style:italic;margin-bottom:.5rem">Cherchez l'inspiration</div>
+    <div style="font-size:12px">Soumettez n'importe quelle photo de mode.</div>
+  </div>
+</div>
+
+<!-- CINEMA -->
+<div id="tab-c" class="hidden">
+  <div class="eye">S'inspirer du grand écran</div>
+  <div class="ttl">Style Icons &amp; Cinéma</div>
+  <div class="sub">Un univers, une attitude — traduits en tenue achetable aujourd'hui</div>
+  <div class="cin-grid" id="cin-grid">
+    <div class="cc on"><div class="cdot" style="background:#D4537E"></div><div class="cf">Le Diable s'habille en Prada</div><div class="cch">Andy Sachs</div><div class="cer">New York, 2006</div></div>
+    <div class="cc"><div class="cdot" style="background:#1D9E75"></div><div class="cf">Breakfast at Tiffany's</div><div class="cch">Holly Golightly</div><div class="cer">New York, 1961</div></div>
+    <div class="cc"><div class="cdot" style="background:#5F5E5A"></div><div class="cf">À bout de souffle</div><div class="cch">Patricia Franchini</div><div class="cer">Paris, 1960</div></div>
+    <div class="cc"><div class="cdot" style="background:#185FA5"></div><div class="cf">Succession</div><div class="cch">Siobhan Roy</div><div class="cer">New York, 2018</div></div>
+    <div class="cc"><div class="cdot" style="background:#854F0B"></div><div class="cf">Saltburn</div><div class="cch">Venetia Catton</div><div class="cer">Angleterre, 2023</div></div>
+    <div class="cc"><div class="cdot" style="background:#993556"></div><div class="cf">Emily in Paris</div><div class="cch">Sylvie Grateau</div><div class="cer">Paris, 2020</div></div>
+    <div class="cc"><div class="cdot" style="background:#BA7517"></div><div class="cf">The Great Gatsby</div><div class="cch">Daisy Buchanan</div><div class="cer">New York, 1920s</div></div>
+    <div class="cc"><div class="cdot" style="background:#2C2C2A"></div><div class="cf">Pulp Fiction</div><div class="cch">Mia Wallace</div><div class="cer">Los Angeles, 1994</div></div>
+    <div class="cc"><div class="cdot" style="background:#0F6E56"></div><div class="cf">Call Me By Your Name</div><div class="cch">Elio Perlman</div><div class="cer">Italie, 1983</div></div>
+  </div>
+  <div class="cbar" style="margin-top:1.5rem">
+    <button class="btng" id="cin-back">&#8592; Découvrir</button>
+    <button class="btnp" id="cin-gen">Générer ce look →</button>
+  </div>
+</div>
+
+<!-- RESULTATS -->
+<div id="tab-r" class="hidden">
+  <div class="ctx"><div class="ctx-txt" id="ctx-txt">Recommandations basées sur votre profil</div><button class="btng" style="padding:.4rem .8rem;font-size:9px" id="refine">&#8592; Affiner</button></div>
+  <div class="hl">
+    <div class="hw"><img id="mann-img" src="" alt="Tenue"></div>
+    <div>
+      <div class="badge" id="r-badge">Tenue recommandée</div>
+      <div class="hname" id="r-name">Bold Statement</div>
+      <div class="hsub" id="r-sub">Sélectionnée selon vos préférences</div>
+      <div class="mstrip hidden" id="mstrip">
+        <span class="mstrip-lbl">Voir sur :</span>
+        <button class="msb on" data-m="slim">Élancée</button>
+        <button class="msb" data-m="curvy">Courbes</button>
+        <button class="msb" data-m="petite">Petite</button>
+        <button class="msb" data-m="athletic">Athlétique</button>
+        <button class="msb" data-m="tall">Grande</button>
+      </div>
+      <div class="plist" id="plist"></div>
+    </div>
+  </div>
+  <div style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--cm);margin:0 0 1rem;padding-bottom:.5rem;border-bottom:.5px solid var(--cb)">Autres suggestions</div>
+  <div class="og" id="og"></div>
+</div>
+
+</div>
+
+<script>
+var I = {
+  "t1": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/1re-tenue-generee-prototype.png",
+  "t2": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/2e-tenue-generee-pour-prototype.png",
+  "t3": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/3e-tenue-generee-prototype.png",
+  "t4": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/4e-tenue-generee-prototype.png",
+  "t5": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/5e-tenue-generee-prototype.png",
+  "t6": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/6e-tenue-generee-prototype.png",
+  "t7": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/7e-tenue-generee-prototype.png",
+  "t8": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/8e-tenue-generee-prototype.png",
+  "t9": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/9e-tenue-generee-prototype.png",
+  "v_h1": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-H1-tenue-5.png",
+  "v_h2": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-H2-tenue-5.png",
+  "v_h3": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-H3-tenue-5.png",
+  "v_b1": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-B1-tenue-5.png",
+  "v_b2": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-B2-tenue-5.png",
+  "v_b3": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-B3-tenue-5.png",
+  "v_s1": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-S1-tenue-5.png",
+  "v_s2": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-S2-tenue-5.png",
+  "v_s3": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/variante-S3-tenue-5.png",
+  "t5_slim": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/slim-model-tenue-5.png",
+  "t5_curvy": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/plus-size-model-tenue-5.png",
+  "t5_petite": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/petite-model-tenue-5.png",
+  "t5_athletic": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/athletic-model-tenue-5.png",
+  "m_slim": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/model-slim-demo-cleed.png",
+  "m_curvy": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/model-plus-size-demo-cleed.png",
+  "m_petite": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/model-petite-demo-cleed.png",
+  "m_athletic": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/mannequin-athletique.png",
+  "m_tall": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/mannequin-tall-demo-cleed.png",
+  "p_blazer_marine": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/blazer-bleu-marine-essai-claua.jpg",
+  "p_blazer_marron": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/blazer-marron-essai-claia.jpg",
+  "p_blazer_noir": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/blazer-noir-essai-claia.jpg",
+  "p_chemise_rayee": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/chemise-oversize-femme-photo-demo-cleed.jpg",
+  "p_chemise_bleue": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/bleu-ciel-chemise-essai-claia.jpg",
+  "p_chemise_beige": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/chemise-beige-essai-claia.jpg",
+  "p_top_noir": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/chemise-noire-essai-claia.jpg",
+  "p_grey_tshirt": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/grey-t-shirt-essai-claia.jpg",
+  "p_pantalon_jaune": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/yellow-pants-essai-claua.jpg",
+  "p_pantalon_marine": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/pantalon-tailleur-demo-cleed.jpg",
+  "p_pantalon_camel": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/pantalon-camel-essai-claia.jpg",
+  "p_pantalon_cargo": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/pantalon-cargo-noir-essai-claia.jpg",
+  "p_jean_noir": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/black-jean-essai-claia.jpg",
+  "p_jupe_noire": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jupe-demo-cleed.jpg",
+  "p_jupe_beige": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/beige-skirt-essai-claia.jpg",
+  "p_jupe_motif": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jupe-a-motif-essai-claia.jpg",
+  "p_mocassins": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/mocassins-demo-cleed.jpg",
+  "p_escarpin_dore": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/escarpin-dore-essai-claia.jpg",
+  "p_escarpin_blanc": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/escarpin-blanc-essai-claia.jpg",
+  "p_basket_blanc": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/basket-white-essai-claia.jpg",
+  "p_basket_rouge": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/basket-red-essai-claia.jpg",
+  "p_basket_marron": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/basket-marron-essai-claia.jpg",
+  "p_veja": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/veja-basket-demo-cleed.jpg",
+  "p_veste_cloutee": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/blazer-femme-cleed-demo.jpg",
+  "p_jean_brode": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jean-essai-claia.jpg",
+  "p_heels": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/heels-demo-cleed.jpg",
+  "T1":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/T1-riviera-moderne.png",
+  "T2":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t2-power-ivoire.png",
+  "T3":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t3-french-gingham.png",
+  "T4":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t4-western-edit.png",
+  "T5":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t5-lace-power.png",
+  "T6":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t6-cobalt-statement.png",
+  "T7":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t7-garden-party-sandro.png",
+  "T8":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t8-sporty-noir.png",
+  "T9":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t9-sunset-paisley.png",
+  "T10": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t10-blue-mood.png",
+  "T11": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t11-denim-romance.png",
+  "T12": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t12-luxury-track.png",
+  "T13": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t13-bureau-parisien.png",
+  "T14": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t14-casual-emeraude.png",
+  "T15": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t15-soiree-bleue.png",
+  "T16": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t16-polo-marine.png",
+  "T17": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t17-street-denim.png",
+  "T18": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t18-romantique-travail.png",
+  "T19": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t19-debardeur-club.png",
+  "T20": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/t20-linen-power.png",
+  "p_veste_volantee":      "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/veste-volantee-courte-sandro.jpg",
+  "p_top_sequin_bleu":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/top-sequin-bleu-sandro.jpg",
+  "p_top_dore":            "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/top-dore-sandro.jpg",
+  "p_top_court_noir":      "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/top-court-noir-sandro.jpg",
+  "p_top_vichy":           "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/top-court-bleu-blanc-sandro.jpg",
+  "p_polo_vert":           "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/polo-vert-sandro.jpg",
+  "p_polo_marine":         "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/polo-court-noir-sandro.jpg",
+  "p_sweat_denim":         "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/sweatshirt-maille-denim-sandro.jpg",
+  "p_debardeur_jaune":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/debardeur-jaune-sandro.jpg",
+  "p_debardeur_bleu":      "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/debardeur-bleu-ciel-sandro.jpg",
+  "p_chemise_jean_bijou":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/chemise-courte-jean-sandro.jpg",
+  "p_chemise_bleu_brode":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/chemise-bleu-brodee-sandro.jpg",
+  "p_chemise_blanche":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/chemise-blanche-sandro.jpg",
+  "p_chemise_dentelle":    "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/chemise-beige-florale-sandro.jpg",
+  "p_cardigan_bleu":       "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/cardigan-bleu-blanc-sandro.jpg",
+  "p_blouson_satin":       "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/blouson-satin-bleu-marine-sandro.jpg",
+  "p_blouson_denim":       "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/blouson-denim-sandro.jpg",
+  "p_blouson_western":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/blouson-bleu-marron-sandro.jpg",
+  "p_blouse_lin":          "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/blouse-lin-sandro.jpg",
+  "p_short_raye":          "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/short-raye-bleu-sandro.jpg",
+  "p_short_marine_strass": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/short-court-bleu-marine-sandro.jpg",
+  "p_pantalon_ivoire":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/pantalon-satine-beige-sandro.jpg",
+  "p_pantalon_floral":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/pantalon-imprime-jaune-rouge-sandro.jpg",
+  "p_pantalon_clair":      "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/pantalon-clair-sandro.jpg",
+  "p_pantalon_bleu_ciel":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/pantalon-bleu-ciel-sandro.jpg",
+  "p_jupe_longue_noire":   "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jupe-longue-fantaisie-sandro.jpg",
+  "p_jupe_longue_blanche": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jupe-longue-blanche-sandro.jpg",
+  "p_jean_droit":          "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jean-droit-sandro.jpg",
+  "p_jean_delave":         "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jean-delave-sandro.jpg",
+  "p_jean_blanc_brode":    "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jean-blanc-sandro.jpg",
+  "p_jupe_mini_noire":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jupe-courte-bleu-sandro.jpg",
+  "p_jupe_mini_vichy":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/jupe-courte-bleu-blanc-sandro.jpg",
+  "p_robe_paisley_marron": "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/robe-marron-essai-sandro.jpg",
+  "p_robe_paisley_bleue":  "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/robe-imprime-sandr.jpg",
+  "p_escarpin_argent":     "https://raw.githubusercontent.com/bnmarty2-create/claia/main/images/escaprins-argent-essai-claia.jpg"
+};
+
+var S = {
+  morph: "slim",
+  occ: "all",
+  styles: ["minimal","parisian"],
+  search: "",
+  outfitId: 5,
+  lastKey: "top",
+  sel: {top:0,bot:0,sho:0}
+};
+
+var morphToT5 = {slim:"t5_slim",curvy:"t5_curvy",petite:"t5_petite",athletic:"t5_athletic",tall:"t5"};
+
+var outfits = [
+  {id:1,name:"Editorial Parisienne",sub:"Top noir - Jean noir - Mocassins",cat:"work",styles:["minimal","parisian","tailored"],main:"t1",
+   pieces:[
+    {cat:"Haut",name:"Top col\u00E9 col carr\u00E9",brand:"Sandro",price:[179,195,155,129],mi:["t1","t1","t1","t1"],prod:["p_top_noir","p_blazer_marron","p_blazer_marine","p_chemise_bleue"],lbl:["Top noir Sandro","Blazer tweed marron","Blazer marine","Chemise bleu ciel"]},
+    {cat:"Bas",name:"Jean noir droit",brand:"Sandro",price:[120,89,110,145],mi:["t1","t1","t1","t1"],prod:["p_jean_noir","p_jupe_noire","p_pantalon_camel","p_jupe_motif"],lbl:["Jean noir","Jupe noire volants","Pantalon camel","Jupe \u00E0 motif"]},
+    {cat:"Chaussures",name:"Mocassins ivoire clout\u00E9s",brand:"Zara",price:[89,120,95,75],mi:["t1","t1","t1","t1"],prod:["p_mocassins","p_escarpin_dore","p_escarpin_blanc","p_basket_blanc"],lbl:["Mocassins ivoire","Escarpins dor\u00E9s","Escarpins blancs","Baskets blanches"]}
+   ]},
+  {id:2,name:"Sandro Collector",sub:"Veste clout\u00E9e - Jean palmiers - Baskets rouges",cat:"evening",styles:["parisian","avantgarde","street"],main:"t2",
+   pieces:[
+    {cat:"Haut",name:"Veste clout\u00E9e dor\u00E9e",brand:"Sandro",price:[195,179,155,129],mi:["t2","t2","t2","t2"],prod:["p_veste_cloutee","p_blazer_noir","p_blazer_marron","p_chemise_rayee"],lbl:["Veste clout\u00E9e marine","Blazer noir cargo","Blazer tweed","Chemise ray\u00E9e APC"]},
+    {cat:"Bas",name:"Jean brod\u00E9 palmiers",brand:"Sandro",price:[165,120,110,145],mi:["t2","t2","t2","t2"],prod:["p_jean_brode","p_jean_noir","p_pantalon_camel","p_jupe_noire"],lbl:["Jean brod\u00E9 palmiers","Jean noir","Pantalon camel","Jupe noire volants"]},
+    {cat:"Chaussures",name:"Baskets rouges montantes",brand:"Sandro",price:[120,89,75,95],mi:["t2","t2","t2","t2"],prod:["p_basket_rouge","p_mocassins","p_basket_blanc","p_escarpin_dore"],lbl:["Baskets rouges","Mocassins ivoire","Baskets blanches","Escarpins dor\u00E9s"]}
+   ]},
+  {id:3,name:"French Riviera",sub:"Chemise beige - Jupe pliss\u00E9e - Baskets blanches",cat:"casual",styles:["minimal","casual","boheme"],main:"t3",
+   pieces:[
+    {cat:"Haut",name:"Chemise beige crop",brand:"Sandro",price:[155,179,129,195],mi:["t3","t3","t3","t3"],prod:["p_chemise_beige","p_blazer_marron","p_chemise_rayee","p_chemise_bleue"],lbl:["Chemise beige Sandro","Blazer tweed","Chemise ray\u00E9e APC","Chemise bleu ciel"]},
+    {cat:"Bas",name:"Jupe pliss\u00E9e beige",brand:"Sandro",price:[89,120,110,145],mi:["t3","t3","t3","t3"],prod:["p_jupe_beige","p_jean_noir","p_pantalon_camel","p_jupe_motif"],lbl:["Jupe beige pliss\u00E9e","Jean noir","Pantalon camel","Jupe \u00E0 motif"]},
+    {cat:"Chaussures",name:"Baskets blanches Sandro",brand:"Sandro",price:[75,89,95,120],mi:["t3","t3","t3","t3"],prod:["p_basket_blanc","p_mocassins","p_escarpin_dore","p_veja"],lbl:["Baskets blanches","Mocassins ivoire","Escarpins dor\u00E9s","Veja multicolore"]}
+   ]},
+  {id:4,name:"APC Weekender",sub:"Chemise ray\u00E9e - Pantalon marine - Baskets marron",cat:"casual",styles:["minimal","casual","parisian"],main:"t4",
+   pieces:[
+    {cat:"Haut",name:"Chemise oversize ray\u00E9e",brand:"A.P.C.",price:[129,155,179,195],mi:["t4","t4","t4","t4"],prod:["p_chemise_rayee","p_blazer_marine","p_blazer_marron","p_chemise_bleue"],lbl:["Chemise ray\u00E9e APC","Blazer marine","Blazer tweed","Chemise bleu ciel"]},
+    {cat:"Bas",name:"Pantalon tailleur marine",brand:"Mango",price:[89,120,110,165],mi:["t4","t4","t4","t4"],prod:["p_pantalon_marine","p_jean_noir","p_pantalon_camel","p_pantalon_jaune"],lbl:["Pantalon marine","Jean noir","Pantalon camel","Pantalon jaune"]},
+    {cat:"Chaussures",name:"Baskets marron Sandro",brand:"Sandro",price:[95,89,75,120],mi:["t4","t4","t4","t4"],prod:["p_basket_marron","p_mocassins","p_basket_blanc","p_escarpin_dore"],lbl:["Baskets marron","Mocassins ivoire","Baskets blanches","Escarpins dor\u00E9s"]}
+   ]},
+  {id:5,name:"Bold Statement",sub:"Blazer marine - Pantalon jaune - Mocassins ivoire",cat:"work",styles:["parisian","tailored","avantgarde"],main:"t5",
+   pieces:[
+    {cat:"Haut",name:"Blazer double boutonnage marine",brand:"Sandro",price:[195,179,155,129],mi:["t5","v_h1","v_h2","v_h3"],prod:["p_blazer_marine","p_blazer_marron","p_chemise_rayee","p_chemise_bleue"],lbl:["Blazer marine Sandro","Blazer tweed marron","Chemise ray\u00E9e APC","Chemise bleu ciel"]},
+    {cat:"Bas",name:"Pantalon large jaune",brand:"Sandro",price:[110,145,99,89],mi:["t5","v_b1","v_b2","v_b3"],prod:["p_pantalon_jaune","p_jupe_noire","p_pantalon_camel","p_jupe_motif"],lbl:["Pantalon jaune","Jupe noire volants","Pantalon camel","Jupe \u00E0 motif"]},
+    {cat:"Chaussures",name:"Mocassins ivoire clout\u00E9s",brand:"Zara",price:[89,120,95,75],mi:["t5","v_s1","v_s2","v_s3"],prod:["p_mocassins","p_escarpin_dore","p_escarpin_blanc","p_basket_blanc"],lbl:["Mocassins ivoire","Escarpins dor\u00E9s","Escarpins blancs","Baskets blanches"]}
+   ]},
+  {id:6,name:"Parisian Evening",sub:"Veste tweed - Jupe volants - Sandales",cat:"evening",styles:["parisian","romantic","tailored"],main:"t6",
+   pieces:[
+    {cat:"Haut",name:"Veste tweed col blanc",brand:"Sandro",price:[179,195,155,129],mi:["t6","t6","t6","t6"],prod:["p_blazer_marron","p_blazer_marine","p_chemise_rayee","p_chemise_bleue"],lbl:["Veste tweed marron","Blazer marine","Chemise ray\u00E9e","Chemise bleu ciel"]},
+    {cat:"Bas",name:"Jupe longue noire \u00E0 volants",brand:"Sandro",price:[145,110,120,89],mi:["t6","t6","t6","t6"],prod:["p_jupe_noire","p_pantalon_jaune","p_pantalon_camel","p_jean_noir"],lbl:["Jupe noire volants","Pantalon jaune","Pantalon camel","Jean noir"]},
+    {cat:"Chaussures",name:"Sandales compens\u00E9es marine",brand:"Mango",price:[89,120,95,75],mi:["t6","t6","t6","t6"],prod:["p_escarpin_dore","p_mocassins","p_escarpin_blanc","p_basket_blanc"],lbl:["Sandales compens\u00E9es","Mocassins ivoire","Escarpins blancs","Baskets blanches"]}
+   ]},
+  {id:7,name:"Sporty Luxe",sub:"Blazer cargo - Jean palmiers - Baskets blanches",cat:"casual",styles:["street","casual","avantgarde"],main:"t7",
+   pieces:[
+    {cat:"Haut",name:"Blazer noir cargo",brand:"Sandro",price:[179,195,155,129],mi:["t7","t7","t7","t7"],prod:["p_blazer_noir","p_blazer_marine","p_blazer_marron","p_chemise_rayee"],lbl:["Blazer noir cargo","Blazer marine","Blazer tweed","Chemise ray\u00E9e APC"]},
+    {cat:"Bas",name:"Jean brod\u00E9 palmiers",brand:"Sandro",price:[165,120,110,89],mi:["t7","t7","t7","t7"],prod:["p_pantalon_jaune","p_jean_noir","p_pantalon_camel","p_jupe_noire"],lbl:["Jean brod\u00E9 palmiers","Jean noir","Pantalon camel","Jupe noire volants"]},
+    {cat:"Chaussures",name:"Baskets blanches Sandro",brand:"Sandro",price:[75,89,95,120],mi:["t7","t7","t7","t7"],prod:["p_basket_blanc","p_mocassins","p_basket_marron","p_escarpin_dore"],lbl:["Baskets blanches","Mocassins ivoire","Baskets marron","Escarpins dor\u00E9s"]}
+   ]},
+  {id:8,name:"Soir\u00E9e Dor\u00E9e",sub:"Chemise bleu ciel - Pantalon camel - Escarpins dor\u00E9s",cat:"evening",styles:["parisian","romantic","tailored"],main:"t8",
+   pieces:[
+    {cat:"Haut",name:"Chemise bleu ciel",brand:"Sandro",price:[155,195,179,129],mi:["t8","t8","t8","t8"],prod:["p_chemise_bleue","p_blazer_marine","p_blazer_marron","p_chemise_rayee"],lbl:["Chemise bleu ciel","Blazer marine","Blazer tweed","Chemise ray\u00E9e APC"]},
+    {cat:"Bas",name:"Pantalon large camel",brand:"Sandro",price:[99,110,120,89],mi:["t8","t8","t8","t8"],prod:["p_pantalon_camel","p_pantalon_jaune","p_jupe_noire","p_jean_noir"],lbl:["Pantalon camel","Pantalon jaune","Jupe noire volants","Jean noir"]},
+    {cat:"Chaussures",name:"Escarpins dor\u00E9s",brand:"Maje",price:[120,89,95,75],mi:["t8","t8","t8","t8"],prod:["p_escarpin_dore","p_mocassins","p_escarpin_blanc","p_basket_blanc"],lbl:["Escarpins dor\u00E9s","Mocassins ivoire","Escarpins blancs","Baskets blanches"]}
+   ]},
+  {id:9,name:"Casual Urbain",sub:"T-shirt gris - Cargo marine - Mocassins noirs",cat:"casual",styles:["street","casual","minimal"],main:"t9",
+   pieces:[
+    {cat:"Haut",name:"T-shirt gris long sleeve",brand:"Sandro",price:[79,155,129,195],mi:["t9","t9","t9","t9"],prod:["p_grey_tshirt","p_chemise_rayee","p_blazer_noir","p_blazer_marine"],lbl:["T-shirt gris","Chemise ray\u00E9e APC","Blazer noir","Blazer marine"]},
+    {cat:"Bas",name:"Pantalon cargo marine",brand:"Sandro",price:[110,89,99,145],mi:["t9","t9","t9","t9"],prod:["p_pantalon_cargo","p_jean_noir","p_pantalon_camel","p_jupe_noire"],lbl:["Cargo marine","Jean noir","Pantalon camel","Jupe noire volants"]},
+    {cat:"Chaussures",name:"Mocassins noirs",brand:"Sandro",price:[89,75,95,120],mi:["t9","t9","t9","t9"],prod:["p_mocassins","p_basket_blanc","p_basket_marron","p_escarpin_dore"],lbl:["Mocassins noirs","Baskets blanches","Baskets marron","Escarpins dor\u00E9s"]}
+   ]}
+,
+  {id:10,name:"Riviera Moderne",sub:"Chemise jean bijou - Short ray\u00E9 bleu",cat:"casual",styles:["casual","parisian","street"],main:"T1",
+   pieces:[
+    {cat:"Haut",name:"Chemise denim col bijou",brand:"Sandro",price:[195,179,155,145],mi:["T1","T1","T1","T1"],prod:["p_chemise_jean_bijou","p_blouson_denim","p_chemise_blanche","p_chemise_rayee"],lbl:["Chemise jean bijou","Blouson denim","Chemise blanche","Chemise ray\u00E9e"]},
+    {cat:"Bas",name:"Short ray\u00E9 bleu",brand:"Sandro",price:[129,110,89,95],mi:["T1","T1","T1","T1"],prod:["p_short_raye","p_jean_delave","p_jean_droit","p_jupe_mini_vichy"],lbl:["Short ray\u00E9 denim","Jean d\u00E9lav\u00E9","Jean droit indigo","Mini jupe vichy"]},
+    {cat:"Chaussures",name:"Baskets blanches",brand:"Sandro",price:[89,75,95,110],mi:["T1","T1","T1","T1"],prod:["p_basket_blanc","p_veja","p_basket_marron","p_mocassins"],lbl:["Baskets blanches","Baskets Veja","Baskets marron","Mocassins ivoire"]}
+   ]},
+  {id:11,name:"Power Ivoire",sub:"Top dor\u00E9 - Pantalon ivoire",cat:"work",styles:["parisian","tailored","minimal"],main:"T2",
+   pieces:[
+    {cat:"Haut",name:"Top dor\u00E9 structur\u00E9",brand:"Sandro",price:[165,179,195,155],mi:["T2","T2","T2","T2"],prod:["p_top_dore","p_chemise_blanche","p_polo_marine","p_debardeur_bleu"],lbl:["Top dor\u00E9 structur\u00E9","Chemise blanche","Polo marine","D\u00E9bardeur bleu ciel"]},
+    {cat:"Bas",name:"Pantalon large ivoire",brand:"Sandro",price:[185,165,145,175],mi:["T2","T2","T2","T2"],prod:["p_pantalon_ivoire","p_pantalon_clair","p_pantalon_bleu_ciel","p_pantalon_camel"],lbl:["Pantalon ivoire","Pantalon cr\u00E8me rayures","Pantalon bleu ciel","Pantalon camel"]},
+    {cat:"Chaussures",name:"Mules dor\u00E9es",brand:"Sandro",price:[145,125,135,115],mi:["T2","T2","T2","T2"],prod:["p_escarpin_dore","p_heels","p_escarpin_blanc","p_escarpin_argent"],lbl:["Escarpins dor\u00E9s","Sandales compens\u00E9es","Escarpins blancs","Escarpins argent\u00E9s"]}
+   ]},
+  {id:12,name:"French Gingham",sub:"Top vichy - Jupe vichy",cat:"casual",styles:["casual","boheme","casual"],main:"T3",
+   pieces:[
+    {cat:"Haut",name:"Top bralette vichy",brand:"Sandro",price:[89,75,95,110],mi:["T3","T3","T3","T3"],prod:["p_top_vichy","p_debardeur_jaune","p_debardeur_bleu","p_top_sequin_bleu"],lbl:["Bralette vichy bleu","D\u00E9bardeur jaune","D\u00E9bardeur bleu ciel","Top s\u00E9quin\u00E9 bleu"]},
+    {cat:"Bas",name:"Mini jupe vichy",brand:"Sandro",price:[110,89,95,120],mi:["T3","T3","T3","T3"],prod:["p_jupe_mini_vichy","p_jupe_mini_noire","p_short_raye","p_jupe_beige"],lbl:["Mini jupe vichy","Mini jupe noire strass","Short ray\u00E9 denim","Jupe pliss\u00E9e beige"]},
+    {cat:"Chaussures",name:"Sandales compens\u00E9es",brand:"Sandro",price:[125,145,115,89],mi:["T3","T3","T3","T3"],prod:["p_heels","p_escarpin_blanc","p_escarpin_dore","p_basket_blanc"],lbl:["Sandales compens\u00E9es","Escarpins blancs","Escarpins dor\u00E9s","Baskets blanches"]}
+   ]},
+  {id:13,name:"Western Edit",sub:"Blouson western - Jean blanc brod\u00E9",cat:"casual",styles:["street","parisian","avantgarde"],main:"T4",
+   pieces:[
+    {cat:"Haut",name:"Blouson denim western",brand:"Sandro",price:[225,195,215,175],mi:["T4","T4","T4","T4"],prod:["p_blouson_western","p_blouson_denim","p_blazer_noir","p_sweat_denim"],lbl:["Blouson western denim","Blouson denim classique","Blazer noir","Sweat maille denim"]},
+    {cat:"Bas",name:"Jean blanc brod\u00E9 floral",brand:"Sandro",price:[175,155,145,165],mi:["T4","T4","T4","T4"],prod:["p_jean_blanc_brode","p_jean_droit","p_jean_delave","p_pantalon_ivoire"],lbl:["Jean blanc brod\u00E9","Jean droit indigo","Jean d\u00E9lav\u00E9","Pantalon ivoire"]},
+    {cat:"Chaussures",name:"Mocassins noirs",brand:"Sandro",price:[115,95,89,125],mi:["T4","T4","T4","T4"],prod:["p_mocassins","p_basket_marron","p_basket_blanc","p_veja"],lbl:["Mocassins noirs","Baskets marron","Baskets blanches","Baskets Veja"]}
+   ]},
+  {id:14,name:"Lace \u0026 Power",sub:"Blouse dentelle ivoire - Jupe longue noire",cat:"evening",styles:["parisian","romantic","avantgarde"],main:"T5",
+   pieces:[
+    {cat:"Haut",name:"Blouse dentelle ivoire",brand:"Sandro",price:[195,179,165,185],mi:["T5","T5","T5","T5"],prod:["p_chemise_dentelle","p_top_court_noir","p_veste_volantee","p_cardigan_bleu"],lbl:["Blouse dentelle ivoire","Top dentelle noire","Veste peplum noire","Cardigan bleu"]},
+    {cat:"Bas",name:"Jupe longue noire",brand:"Sandro",price:[165,145,155,175],mi:["T5","T5","T5","T5"],prod:["p_jupe_longue_noire","p_jupe_noire","p_jupe_longue_blanche","p_pantalon_clair"],lbl:["Jupe longue noire","Jupe noire volants","Jupe longue blanche","Pantalon cr\u00E8me"]},
+    {cat:"Chaussures",name:"Sandales compens\u00E9es",brand:"Sandro",price:[125,145,135,115],mi:["T5","T5","T5","T5"],prod:["p_heels","p_escarpin_dore","p_escarpin_blanc","p_escarpin_argent"],lbl:["Sandales compens\u00E9es","Escarpins dor\u00E9s","Escarpins blancs","Escarpins argent\u00E9s"]}
+   ]},
+  {id:15,name:"Cobalt Statement",sub:"Chemise brod\u00E9e bleue - Jean indigo",cat:"casual",styles:["avantgarde","parisian","street"],main:"T6",
+   pieces:[
+    {cat:"Haut",name:"Chemise brod\u00E9e cobalt",brand:"Sandro",price:[185,155,179,165],mi:["T6","T6","T6","T6"],prod:["p_chemise_bleu_brode","p_chemise_blanche","p_polo_vert","p_debardeur_bleu"],lbl:["Chemise brod\u00E9e cobalt","Chemise blanche","Polo vert \u00E9meraude","D\u00E9bardeur bleu ciel"]},
+    {cat:"Bas",name:"Jean large indigo",brand:"Sandro",price:[155,145,165,135],mi:["T6","T6","T6","T6"],prod:["p_jean_droit","p_jean_delave","p_jean_noir","p_pantalon_marine"],lbl:["Jean large indigo","Jean d\u00E9lav\u00E9","Jean noir","Pantalon tailleur"]},
+    {cat:"Chaussures",name:"Baskets rouges",brand:"Sandro",price:[120,89,95,75],mi:["T6","T6","T6","T6"],prod:["p_basket_rouge","p_basket_blanc","p_basket_marron","p_veja"],lbl:["Baskets rouges","Baskets blanches","Baskets marron","Baskets Veja"]}
+   ]},
+  {id:16,name:"Garden Party",sub:"Blouse lin smock\u00E9e - Pantalon fleuri",cat:"casual",styles:["boheme","romantic","casual"],main:"T7",
+   pieces:[
+    {cat:"Haut",name:"Blouse lin smock\u00E9e",brand:"Sandro",price:[155,165,145,175],mi:["T7","T7","T7","T7"],prod:["p_blouse_lin","p_chemise_dentelle","p_chemise_beige","p_chemise_blanche"],lbl:["Blouse lin smock\u00E9e","Blouse dentelle","Chemise beige crop","Chemise blanche"]},
+    {cat:"Bas",name:"Pantalon fleuri cr\u00E8me",brand:"Sandro",price:[145,165,135,155],mi:["T7","T7","T7","T7"],prod:["p_pantalon_floral","p_jupe_longue_blanche","p_jupe_beige","p_pantalon_ivoire"],lbl:["Pantalon fleuri cr\u00E8me","Jupe longue blanche","Jupe beige pliss\u00E9e","Pantalon ivoire"]},
+    {cat:"Chaussures",name:"Escarpins blancs",brand:"Sandro",price:[135,125,145,115],mi:["T7","T7","T7","T7"],prod:["p_escarpin_blanc","p_heels","p_escarpin_dore","p_basket_blanc"],lbl:["Escarpins blancs","Sandales compens\u00E9es","Escarpins dor\u00E9s","Baskets blanches"]}
+   ]},
+  {id:17,name:"Sporty Noir Edit",sub:"Veste peplum noire - Mini jupe strass",cat:"evening",styles:["avantgarde","street","avantgarde"],main:"T8",
+   pieces:[
+    {cat:"Haut",name:"Veste peplum noire",brand:"Sandro",price:[245,195,225,215],mi:["T8","T8","T8","T8"],prod:["p_veste_volantee","p_top_court_noir","p_blazer_noir","p_sweat_denim"],lbl:["Veste peplum noire","Top dentelle noire","Blazer noir","Sweat maille denim"]},
+    {cat:"Bas",name:"Mini jupe strass noire",brand:"Sandro",price:[145,165,135,155],mi:["T8","T8","T8","T8"],prod:["p_jupe_mini_noire","p_jupe_longue_noire","p_short_marine_strass","p_jupe_noire"],lbl:["Mini jupe strass","Jupe longue noire","Short marine strass","Jupe volants noire"]},
+    {cat:"Chaussures",name:"Baskets blanches",brand:"Sandro",price:[89,95,75,110],mi:["T8","T8","T8","T8"],prod:["p_basket_blanc","p_basket_marron","p_veja","p_mocassins"],lbl:["Baskets blanches","Baskets marron","Baskets Veja","Mocassins ivoire"]}
+   ]},
+  {id:18,name:"Sunset Paisley",sub:"Robe longue bandana caramel",cat:"evening",styles:["boheme","casual","romantic"],main:"T9",
+   pieces:[
+    {cat:"Robe",name:"Robe longue paisley caramel",brand:"Sandro",price:[265,275,245,295],mi:["T9","T9","T9","T9"],prod:["p_robe_paisley_marron","p_robe_paisley_bleue","p_jupe_longue_noire","p_jupe_longue_blanche"],lbl:["Robe paisley caramel","Robe paisley bleue","Jupe longue noire","Jupe longue blanche"]},
+    {cat:"Chaussures",name:"Sandales compens\u00E9es",brand:"Sandro",price:[125,145,135,115],mi:["T9","T9","T9","T9"],prod:["p_heels","p_escarpin_dore","p_escarpin_blanc","p_basket_blanc"],lbl:["Sandales compens\u00E9es","Escarpins dor\u00E9s","Escarpins blancs","Baskets blanches"]}
+   ]},
+  {id:19,name:"Blue Mood",sub:"Cardigan bleu - Pantalon bleu ciel",cat:"work",styles:["parisian","minimal","casual"],main:"T10",
+   pieces:[
+    {cat:"Haut",name:"Cardigan tricot bleu",brand:"Sandro",price:[155,145,165,135],mi:["T10","T10","T10","T10"],prod:["p_cardigan_bleu","p_polo_marine","p_debardeur_bleu","p_chemise_blanche"],lbl:["Cardigan tricot bleu","Polo marine","D\u00E9bardeur bleu ciel","Chemise blanche"]},
+    {cat:"Bas",name:"Pantalon bleu ciel rayures",brand:"Sandro",price:[165,175,145,185],mi:["T10","T10","T10","T10"],prod:["p_pantalon_bleu_ciel","p_pantalon_clair","p_pantalon_ivoire","p_jean_droit"],lbl:["Pantalon bleu ciel","Pantalon cr\u00E8me rayures","Pantalon ivoire","Jean large indigo"]},
+    {cat:"Chaussures",name:"Escarpins argent\u00E9s",brand:"Sandro",price:[135,125,145,115],mi:["T10","T10","T10","T10"],prod:["p_escarpin_argent","p_escarpin_blanc","p_heels","p_escarpin_dore"],lbl:["Escarpins argent\u00E9s","Escarpins blancs","Sandales compens\u00E9es","Escarpins dor\u00E9s"]}
+   ]},
+  {id:20,name:"Denim Romance",sub:"Blouson denim - Robe paisley bleue",cat:"casual",styles:["parisian","casual","street"],main:"T11",
+   pieces:[
+    {cat:"Haut",name:"Blouson denim 4 poches",brand:"Sandro",price:[215,225,195,175],mi:["T11","T11","T11","T11"],prod:["p_blouson_denim","p_blouson_western","p_blouson_satin","p_sweat_denim"],lbl:["Blouson denim classique","Blouson western denim","Blouson satin marine","Sweat maille denim"]},
+    {cat:"Bas",name:"Robe paisley bleue",brand:"Sandro",price:[275,265,245,295],mi:["T11","T11","T11","T11"],prod:["p_robe_paisley_bleue","p_robe_paisley_marron","p_jupe_longue_noire","p_jupe_longue_blanche"],lbl:["Robe paisley bleue","Robe paisley caramel","Jupe longue noire","Jupe longue blanche"]},
+    {cat:"Chaussures",name:"Baskets marron",brand:"Sandro",price:[89,75,95,110],mi:["T11","T11","T11","T11"],prod:["p_basket_marron","p_basket_blanc","p_veja","p_mocassins"],lbl:["Baskets marron","Baskets blanches","Baskets Veja","Mocassins ivoire"]}
+   ]},
+  {id:21,name:"Luxury Track",sub:"Blouson satin marine - Jean d\u00E9lav\u00E9",cat:"casual",styles:["street","street","casual"],main:"T12",
+   pieces:[
+    {cat:"Haut",name:"Blouson satin sport",brand:"Sandro",price:[195,215,175,225],mi:["T12","T12","T12","T12"],prod:["p_blouson_satin","p_sweat_denim","p_blouson_denim","p_polo_marine"],lbl:["Blouson satin marine","Sweat maille denim","Blouson denim","Polo marine"]},
+    {cat:"Bas",name:"Jean large d\u00E9lav\u00E9",brand:"Sandro",price:[155,165,145,135],mi:["T12","T12","T12","T12"],prod:["p_jean_delave","p_jean_droit","p_jean_noir","p_pantalon_cargo"],lbl:["Jean d\u00E9lav\u00E9","Jean droit indigo","Jean noir","Pantalon cargo"]},
+    {cat:"Chaussures",name:"Baskets blanches",brand:"Sandro",price:[89,75,95,110],mi:["T12","T12","T12","T12"],prod:["p_basket_blanc","p_basket_marron","p_veja","p_mocassins"],lbl:["Baskets blanches","Baskets marron","Baskets Veja","Mocassins ivoire"]}
+   ]},
+  {id:22,name:"Bureau Parisien",sub:"Chemise blanche - Pantalon tailleur marine",cat:"work",styles:["parisian","tailored","minimal"],main:"T13",
+   pieces:[
+    {cat:"Haut",name:"Chemise blanche Sandro",brand:"Sandro",price:[145,155,135,165],mi:["T13","T13","T13","T13"],prod:["p_chemise_blanche","p_polo_marine","p_top_dore","p_debardeur_bleu"],lbl:["Chemise blanche Sandro","Polo marine","Top dor\u00E9","D\u00E9bardeur bleu ciel"]},
+    {cat:"Bas",name:"Pantalon tailleur marine",brand:"Sandro",price:[155,175,165,145],mi:["T13","T13","T13","T13"],prod:["p_pantalon_marine","p_pantalon_bleu_ciel","p_pantalon_clair","p_jean_droit"],lbl:["Pantalon tailleur marine","Pantalon bleu ciel","Pantalon cr\u00E8me","Jean large indigo"]},
+    {cat:"Chaussures",name:"Mocassins ivoire",brand:"Sandro",price:[115,89,95,125],mi:["T13","T13","T13","T13"],prod:["p_mocassins","p_basket_blanc","p_escarpin_blanc","p_heels"],lbl:["Mocassins ivoire","Baskets blanches","Escarpins blancs","Sandales compens\u00E9es"]}
+   ]},
+  {id:23,name:"Casual Emeraude",sub:"Polo vert \u00E9meraude - Jean d\u00E9lav\u00E9",cat:"casual",styles:["casual","parisian","street"],main:"T14",
+   pieces:[
+    {cat:"Haut",name:"Polo crop vert \u00E9meraude",brand:"Sandro",price:[145,135,155,165],mi:["T14","T14","T14","T14"],prod:["p_polo_vert","p_polo_marine","p_debardeur_jaune","p_cardigan_bleu"],lbl:["Polo vert \u00E9meraude","Polo marine","D\u00E9bardeur jaune","Cardigan bleu"]},
+    {cat:"Bas",name:"Jean large d\u00E9lav\u00E9",brand:"Sandro",price:[155,165,145,135],mi:["T14","T14","T14","T14"],prod:["p_jean_delave","p_jean_droit","p_jean_blanc_brode","p_pantalon_floral"],lbl:["Jean d\u00E9lav\u00E9","Jean droit indigo","Jean blanc brod\u00E9","Pantalon fleuri"]},
+    {cat:"Chaussures",name:"Baskets marron",brand:"Sandro",price:[89,95,75,110],mi:["T14","T14","T14","T14"],prod:["p_basket_marron","p_basket_blanc","p_veja","p_mocassins"],lbl:["Baskets marron","Baskets blanches","Baskets Veja","Mocassins ivoire"]}
+   ]},
+  {id:24,name:"Soiree Bleue",sub:"Top s\u00E9quin\u00E9 bleu - Jupe longue noire",cat:"evening",styles:["avantgarde","avantgarde","parisian"],main:"T15",
+   pieces:[
+    {cat:"Haut",name:"Top s\u00E9quin\u00E9 bleu",brand:"Sandro",price:[185,165,195,215],mi:["T15","T15","T15","T15"],prod:["p_top_sequin_bleu","p_top_court_noir","p_debardeur_bleu","p_veste_volantee"],lbl:["Top s\u00E9quin\u00E9 bleu","Top dentelle noire","D\u00E9bardeur bleu ciel","Veste peplum noire"]},
+    {cat:"Bas",name:"Jupe longue noire",brand:"Sandro",price:[165,155,175,145],mi:["T15","T15","T15","T15"],prod:["p_jupe_longue_noire","p_jupe_noire","p_jupe_mini_noire","p_pantalon_marine"],lbl:["Jupe longue noire","Jupe volants noire","Mini jupe strass","Pantalon tailleur"]},
+    {cat:"Chaussures",name:"Escarpins argent\u00E9s",brand:"Sandro",price:[135,145,125,115],mi:["T15","T15","T15","T15"],prod:["p_escarpin_argent","p_escarpin_dore","p_heels","p_escarpin_blanc"],lbl:["Escarpins argent\u00E9s","Escarpins dor\u00E9s","Sandales compens\u00E9es","Escarpins blancs"]}
+   ]},
+  {id:25,name:"Polo Marine",sub:"Polo marine - Pantalon ivoire",cat:"work",styles:["parisian","minimal","tailored"],main:"T16",
+   pieces:[
+    {cat:"Haut",name:"Polo crop marine",brand:"Sandro",price:[145,135,155,165],mi:["T16","T16","T16","T16"],prod:["p_polo_marine","p_polo_vert","p_cardigan_bleu","p_chemise_blanche"],lbl:["Polo marine","Polo vert \u00E9meraude","Cardigan bleu","Chemise blanche"]},
+    {cat:"Bas",name:"Pantalon large ivoire",brand:"Sandro",price:[185,165,175,145],mi:["T16","T16","T16","T16"],prod:["p_pantalon_ivoire","p_pantalon_clair","p_pantalon_bleu_ciel","p_pantalon_camel"],lbl:["Pantalon ivoire","Pantalon cr\u00E8me rayures","Pantalon bleu ciel","Pantalon camel"]},
+    {cat:"Chaussures",name:"Mules dor\u00E9es",brand:"Sandro",price:[145,125,135,115],mi:["T16","T16","T16","T16"],prod:["p_escarpin_dore","p_heels","p_escarpin_blanc","p_escarpin_argent"],lbl:["Escarpins dor\u00E9s","Sandales compens\u00E9es","Escarpins blancs","Escarpins argent\u00E9s"]}
+   ]},
+  {id:26,name:"Street Denim",sub:"Sweat cropped - Short marine strass",cat:"casual",styles:["street","street","casual"],main:"T17",
+   pieces:[
+    {cat:"Haut",name:"Sweat cropped denim",brand:"Sandro",price:[165,145,175,195],mi:["T17","T17","T17","T17"],prod:["p_sweat_denim","p_blouson_satin","p_polo_marine","p_blouson_denim"],lbl:["Sweat cropped denim","Blouson satin marine","Polo marine","Blouson denim"]},
+    {cat:"Bas",name:"Short marine strass",brand:"Sandro",price:[145,135,129,155],mi:["T17","T17","T17","T17"],prod:["p_short_marine_strass","p_short_raye","p_jupe_mini_noire","p_jean_delave"],lbl:["Short marine strass","Short ray\u00E9 denim","Mini jupe strass","Jean d\u00E9lav\u00E9"]},
+    {cat:"Chaussures",name:"Baskets blanches",brand:"Sandro",price:[89,75,95,110],mi:["T17","T17","T17","T17"],prod:["p_basket_blanc","p_basket_marron","p_veja","p_mocassins"],lbl:["Baskets blanches","Baskets marron","Baskets Veja","Mocassins ivoire"]}
+   ]},
+  {id:27,name:"Romantique Travail",sub:"Top dentelle noire - Pantalon cr\u00E8me",cat:"work",styles:["parisian","romantic","tailored"],main:"T18",
+   pieces:[
+    {cat:"Haut",name:"Top dentelle noire",brand:"Sandro",price:[175,165,185,195],mi:["T18","T18","T18","T18"],prod:["p_top_court_noir","p_chemise_dentelle","p_veste_volantee","p_blazer_noir"],lbl:["Top dentelle noire","Blouse dentelle ivoire","Veste peplum noire","Blazer noir"]},
+    {cat:"Bas",name:"Pantalon cr\u00E8me rayures tennis",brand:"Sandro",price:[165,185,175,145],mi:["T18","T18","T18","T18"],prod:["p_pantalon_clair","p_pantalon_ivoire","p_pantalon_bleu_ciel","p_jean_blanc_brode"],lbl:["Pantalon cr\u00E8me rayures","Pantalon ivoire","Pantalon bleu ciel","Jean blanc brod\u00E9"]},
+    {cat:"Chaussures",name:"Escarpins blancs",brand:"Sandro",price:[125,135,145,115],mi:["T18","T18","T18","T18"],prod:["p_escarpin_blanc","p_heels","p_escarpin_dore","p_escarpin_argent"],lbl:["Escarpins blancs","Sandales compens\u00E9es","Escarpins dor\u00E9s","Escarpins argent\u00E9s"]}
+   ]},
+  {id:28,name:"Debardeur Club",sub:"D\u00E9bardeur bleu ciel - Jean blanc brod\u00E9",cat:"casual",styles:["casual","parisian","boheme"],main:"T19",
+   pieces:[
+    {cat:"Haut",name:"D\u00E9bardeur bleu ciel",brand:"Sandro",price:[89,95,75,110],mi:["T19","T19","T19","T19"],prod:["p_debardeur_bleu","p_debardeur_jaune","p_top_vichy","p_cardigan_bleu"],lbl:["D\u00E9bardeur bleu ciel","D\u00E9bardeur jaune","Bralette vichy","Cardigan bleu"]},
+    {cat:"Bas",name:"Jean blanc brod\u00E9 floral",brand:"Sandro",price:[175,155,165,145],mi:["T19","T19","T19","T19"],prod:["p_jean_blanc_brode","p_jean_delave","p_jean_droit","p_pantalon_floral"],lbl:["Jean blanc brod\u00E9","Jean d\u00E9lav\u00E9","Jean droit indigo","Pantalon fleuri"]},
+    {cat:"Chaussures",name:"Sandales compens\u00E9es",brand:"Sandro",price:[125,145,135,115],mi:["T19","T19","T19","T19"],prod:["p_heels","p_escarpin_blanc","p_escarpin_dore","p_basket_blanc"],lbl:["Sandales compens\u00E9es","Escarpins blancs","Escarpins dor\u00E9s","Baskets blanches"]}
+   ]},
+  {id:29,name:"Linen Power",sub:"Blouse lin smock\u00E9e - Jean large indigo",cat:"casual",styles:["parisian","minimal","casual"],main:"T20",
+   pieces:[
+    {cat:"Haut",name:"Blouse lin smock\u00E9e",brand:"Sandro",price:[155,145,165,135],mi:["T20","T20","T20","T20"],prod:["p_blouse_lin","p_chemise_blanche","p_chemise_beige","p_chemise_rayee"],lbl:["Blouse lin smock\u00E9e","Chemise blanche Sandro","Chemise beige crop","Chemise ray\u00E9e"]},
+    {cat:"Bas",name:"Jean large indigo",brand:"Sandro",price:[155,145,165,135],mi:["T20","T20","T20","T20"],prod:["p_jean_droit","p_jean_delave","p_jean_noir","p_pantalon_marine"],lbl:["Jean large indigo","Jean d\u00E9lav\u00E9","Jean noir","Pantalon tailleur"]},
+    {cat:"Chaussures",name:"Mocassins noirs",brand:"Sandro",price:[115,89,95,125],mi:["T20","T20","T20","T20"],prod:["p_mocassins","p_basket_blanc","p_escarpin_blanc","p_basket_marron"],lbl:["Mocassins noirs","Baskets blanches","Escarpins blancs","Baskets marron"]}
+   ]}
+];
+
+function isBold(){return S.morph!=="tall" || (S.occ==="work" && S.styles.indexOf("parisian")>=0);}
+
+function score(o){
+  var catMap={all:null,casual:"casual",work:"work",evening:"evening"};
+  var cat=catMap[S.occ];
+  var srch=S.search.toLowerCase();
+  if(srch.indexOf("soir")>=0||srch.indexOf("d\u00EEner")>=0)cat="evening";
+  if(srch.indexOf("casual")>=0||srch.indexOf("week")>=0)cat="casual";
+  if(srch.indexOf("travail")>=0||srch.indexOf("bureau")>=0)cat="work";
+  var sc=0;
+  if(!cat||o.cat===cat)sc+=10;
+  S.styles.forEach(function(s){if(o.styles.indexOf(s)>=0)sc+=3;});
+  if(o.id===5)sc+=(S.morph!=="tall"?100:2);
+  return sc;
+}
+
+function ranked(){
+  return outfits.slice().sort(function(a,b){return score(b)-score(a);});
+}
+
+function mainImg(o){
+  if(o.id===5&&isBold())return I[morphToT5[S.morph]]||I["t5"];
+  return I[o.main];
+}
+
+function ctxText(){
+  var parts=[];
+  var labels={all:"toutes occasions",casual:"quotidien & week-end",work:"travail & chic",evening:"soir\u00E9e & formel"};
+  if(S.occ!=="all")parts.push("<strong>"+labels[S.occ]+"</strong>");
+  if(S.styles.length>0){
+    var names=S.styles.slice(0,2).map(function(s){var el=document.querySelector("[data-s='"+s+"']");return el?el.textContent.toLowerCase():s;});
+    parts.push("style <strong>"+names.join(" & ")+"</strong>");
+  }
+  if(S.search)parts.push("\u00AB <strong>"+S.search+"</strong> \u00BB");
+  return parts.length?"S\u00E9lection pour\u00A0: "+parts.join(" \u00B7 "):"Recommandations bas\u00E9es sur votre profil";
+}
+
+function showTab(name){
+  ["d","v","c","r"].forEach(function(t){
+    document.getElementById("tab-"+t).classList.add("hidden");
+    document.getElementById("nt-"+t).classList.remove("on");
+  });
+  document.getElementById("tab-"+name).classList.remove("hidden");
+  document.getElementById("nt-"+name).classList.add("on");
+  if(name==="r")renderR();
+}
+
+function setMannImg(src){
+  var el=document.getElementById("mann-img");
+  el.classList.add("fading");
+  setTimeout(function(){
+    el.src=src;
+    el.classList.remove("fading");
+    el.onerror=function(){
+      this.alt="Image non disponible: "+src.split("/").pop();
+      this.style.padding="20px";
+      this.style.fontSize="11px";
+      this.style.background="#fee";
+    };
+  },200);
+}
+
+function renderPieces(){
+  var o=outfits.find(function(x){return x.id===S.outfitId;});
+  if(!o)return;
+  var keys=["top","bot","sho"];
+  var pl=document.getElementById("plist");
+  pl.innerHTML="";
+
+  o.pieces.forEach(function(p,pi){
+    var key=keys[pi];
+    var si=S.sel[key];
+    if(si===undefined)si=0;
+
+    // Header
+    var pc=document.createElement("div");
+    pc.className="pc";
+    var ph=document.createElement("div");
+    ph.className="ph";
+    ph.innerHTML="<span class='pcat'>"+p.cat+"</span><span class='pprice'>\u20AC"+p.price[si]+"</span>";
+    var pn=document.createElement("div");
+    pn.className="pname";
+    pn.textContent=p.name;
+    var pb=document.createElement("div");
+    pb.className="pbrand";
+    pb.textContent=p.brand+" \u2014 "+p.lbl[si];
+    var al=document.createElement("div");
+    al.className="alt-lbl";
+    al.textContent="Alternatives";
+
+    // Carousel
+    var car=document.createElement("div");
+    car.className="car";
+    p.prod.forEach(function(pk,ii){
+      var ci=document.createElement("div");
+      ci.className="ci"+(ii===si?" on":"");
+      var img=document.createElement("img");
+      img.src=I[pk]||"";
+      img.alt="";
+      var lbl=document.createElement("div");
+      lbl.className="ci-lbl";
+      lbl.textContent=p.lbl[ii];
+      ci.appendChild(img);
+      ci.appendChild(lbl);
+      ci.addEventListener("click",(function(k,idx,mkey){
+        return function(){
+          S.sel[k]=idx;
+          S.lastKey=k;
+          setMannImg(I[mkey]||I[o.main]);
+          renderPieces();
+        };
+      })(key,ii,p.mi[ii]));
+      car.appendChild(ci);
+    });
+
+    // Add to cart
+    var btn=document.createElement("button");
+    btn.className="addbtn";
+    btn.textContent="Ajouter au panier";
+    btn.addEventListener("click",function(){
+      btn.textContent="Ajout\u00E9 \u2713";
+      btn.style.background="var(--ch)";btn.style.color="var(--cw)";
+      setTimeout(function(){btn.textContent="Ajouter au panier";btn.style.background="";btn.style.color="";},1800);
+    });
+
+    pc.appendChild(ph);pc.appendChild(pn);pc.appendChild(pb);pc.appendChild(al);pc.appendChild(car);pc.appendChild(btn);
+    pl.appendChild(pc);
+  });
+
+  // Total
+  var tot=0;
+  o.pieces.forEach(function(p,i){tot+=p.price[S.sel[keys[i]]||0];});
+  var tb=document.createElement("div");tb.className="tbar";
+  var tl=document.createElement("div");
+  tl.innerHTML="<div class='t-lbl'>Total tenue</div><div class='t-amt'>\u20AC"+tot+"</div>";
+  var tr=document.createElement("div");
+  var buy=document.createElement("button");
+  buy.className="btnp";buy.style.cssText="padding:.55rem 1.4rem;font-size:9px";
+  buy.textContent="Acheter la tenue";
+  tr.appendChild(buy);
+  tb.appendChild(tl);tb.appendChild(tr);
+  pl.appendChild(tb);
+}
+
+function renderR(){
+  var r=ranked();
+  var best=r[0];
+  S.outfitId=best.id;
+  S.sel={top:0,bot:0,sho:0};
+  S.lastKey="top";
+  document.getElementById("ctx-txt").innerHTML=ctxText();
+  document.getElementById("r-badge").textContent="Notre recommandation pour vous";
+  document.getElementById("r-name").textContent=best.name;
+  document.getElementById("r-sub").textContent=best.sub;
+  setMannImg(mainImg(best));
+  var ms=document.getElementById("mstrip");
+  if(isBold()){ms.classList.remove("hidden");ms.querySelectorAll(".msb").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-m")===S.morph);});}
+  else{ms.classList.add("hidden");}
+  renderPieces();
+  var og=document.getElementById("og");
+  og.innerHTML="";
+  r.slice(1,5).forEach(function(item){
+    var o=item;
+    var div=document.createElement("div");div.className="ot";
+    var img=document.createElement("img");img.src=I[o.main]||"";img.alt="";img.onerror=function(){this.style.background="var(--cb)";this.style.opacity="0.3";};
+    var info=document.createElement("div");info.className="ot-info";
+    info.innerHTML="<div class='ot-name'>"+o.name+"</div><div class='ot-sub'>"+o.sub+"</div>";
+    div.appendChild(img);div.appendChild(info);
+    div.addEventListener("click",function(){
+      S.outfitId=o.id;S.sel={top:0,bot:0,sho:0};S.lastKey="top";
+      document.getElementById("r-badge").textContent="Tenue s\u00E9lectionn\u00E9e";
+      document.getElementById("r-name").textContent=o.name;
+      document.getElementById("r-sub").textContent=o.sub;
+      setMannImg(mainImg(o));
+      var ms2=document.getElementById("mstrip");
+      if(isBold())ms2.classList.remove("hidden");else ms2.classList.add("hidden");
+      renderPieces();window.scrollTo({top:0,behavior:"smooth"});
+    });
+    og.appendChild(div);
+  });
+}
+
+
+// ============================================================
+// CLAUDE AI SEARCH
+// ============================================================
+var claudeRanking = null;
+var claudeExplanation = "";
+
+function buildCatalogue(){
+  var lines = outfits.map(function(o){
+    // Build detailed piece descriptions
+    var pieces = o.pieces.map(function(p){
+      return p.cat+":"+p.name;
+    }).join(" / ");
+    // Detect shoe type from pieces
+    var shoes = "";
+    o.pieces.forEach(function(p){
+      if(p.cat==="Chaussures") shoes = p.name;
+    });
+    return o.id+"|"+o.name+"|"+o.sub+"|"+o.cat+"|"+o.styles.join(",")+"|"+pieces+"|chaussures:"+shoes;
+  });
+  return lines.join("\n");
+}
+
+function claudeSearch(query){
+  // Show loading state
+  showTab("r");
+  var badge = document.getElementById("r-badge");
+  if(badge) badge.textContent = "CLAIA recherche...";
+
+  var catalogue = buildCatalogue();
+  // Detect context clues from query for extra rules
+  var q = query.toLowerCase();
+  var extraRules = "";
+  if(q.indexOf("dans")>=0||q.indexOf("club")>=0||q.indexOf("fest")>=0){
+    extraRules += "DANSE/MOUVEMENT: Privilegier sequins+jupe longue fluide+escarpins plats stables (comme Soiree Bleue). EXCLURE sandales compensees hautes instables. Baskets acceptables si look est assez elabore par ailleurs.\n";
+  }
+  if(q.indexOf("bureau")>=0||q.indexOf("travail")>=0||q.indexOf("reunio")>=0){
+    extraRules += "BUREAU: Privilegier tailored, blazers, pantalons structures. Eviter crop tops, bralettes, shorts. Chaussures fermees obligatoires.\n";
+  }
+  if(q.indexOf("brunch")>=0||q.indexOf("week")>=0||q.indexOf("casual")>=0){
+    extraRules += "CASUAL CHIC: Jeans, robes decontractees OK. Baskets et mocassins bienvenus. Eviter les tenues trop formelles.\n";
+  }
+  if(q.indexOf("soir")>=0||q.indexOf("diner")>=0||q.indexOf("cocktail")>=0||q.indexOf("gala")>=0){
+    extraRules += "SOIREE FORMELLE: Privilegier robes longues, jupes longues, matieres nobles (satin, dentelle, sequins). Escarpins ou mules elegantes. EXCLURE baskets, jeans, sweatshirts.\n";
+  }
+  if(q.indexOf("concert")>=0||q.indexOf("festival")>=0||q.indexOf("musique")>=0){
+    extraRules += "CONCERT/FESTIVAL: Short strass ou mini jupe avec sweat/blouson = parfait. Baskets obligatoires. Privilegier les details travailles (strass, broderies) pour l'eclat meme en casual.\n";
+  }
+  if(q.indexOf("mariage")>=0||q.indexOf("cocktail")>=0||q.indexOf("invite")>=0){
+    extraRules += "MARIAGE INVITEE: Une robe longue imprimee OU un look blouson+robe decontracte sont tous deux valides. Eviter le trop formel. Le look 'elegant sans effort' est ideal.\n";
+  }
+  if(q.indexOf("ete")>=0||q.indexOf("chaleur")>=0||q.indexOf("plage")>=0||q.indexOf("vacanc")>=0){
+    extraRules += "ETE/CHALEUR: Privilegier lin, coton leger, vichy, robes courtes. Sandales et baskets. Eviter satin, blazers epais.\n";
+  }
+  if(q.indexOf("romantique")>=0||q.indexOf("rendez-vous")>=0||q.indexOf("date")>=0){
+    extraRules += "ROMANTIQUE: Privilegier dentelle, floral, robes fluides, couleurs douces. Eviter streetwear et looks trop masculins.\n";
+  }
+
+  var prompt = "Tu es CLAIA, personal shopper expert pour Sandro Paris.\n"+
+    "Ta mission: recommander les tenues les PLUS ADAPTEES a la demande en tenant compte du style ET de la praticite.\n\n"+
+    "DEMANDE: \""+query+"\"\n\n"+
+    (extraRules ? "REGLES OBLIGATOIRES POUR CETTE DEMANDE:\n"+extraRules+"\n" : "")+
+    "PROFIL STYLISTIQUE DE L'UTILISATRICE:\n"+
+    "- Elle prefere TOUJOURS la couleur forte sur la base neutre (vert emeraude, cobalt, vichy) plutot que le look neutre safe\n"+
+    "- Elle habille vers le bas: polo > blazer au bureau, blouson denim > robe formelle en soiree casual, baskets > mocassins formels en voyage\n"+
+    "- Pour les occasions vraiment romantiques/estivales: robe longue complete > separates assembles\n"+
+    "- Les details travailles (strass, broderies) sont acceptables meme en casual - ils ne sont PAS reserves au formel\n"+
+    "- Le total look coordonne (matching) est valorise, pas percu comme too much\n"+
+    "- Soiree formelle: sequins + fluidite + chaussures stables (pas de compensees hautes instables)\n"+
+    "- Le 'trop habille' est une erreur autant que le 'trop casual' - l'equilibre penche vers le decontracte chic\n\n"+
+    "REGLES GENERALES DE STYLE:\n"+
+    "- Chaussures: baskets=casual ET concert/soiree decontractee OK, mocassins=bureau/voyage, escarpins argent\u00E9s=soiree dansante, sandales compensees=mer/terrasse (instables pour danser)\n"+
+    "- Matieres nobles (satin, dentelle, sequins)=soiree formelle MAIS strass accepte en casual si bien equilbre\n"+
+    "- Pieces fluides (jupes plissees, robes longues)=confort de mouvement ET romantisme\n"+
+    "- Pieces structurees (blazers, vestes peplum)=bureau/presentation uniquement\n"+
+    "- Total look coordonne (vichy/vichy, etc)=valorise et recommande\n"+
+    "- Couleur forte = toujours privilegier si disponible et coherente avec l'occasion\n\n"+
+    "CATALOGUE (format: id|nom|description|occasion|styles|pieces|chaussures):\n"+
+    catalogue+"\n\n"+
+    "Selectionne les 5 tenues les plus pertinentes. Si une tenue est incompatible avec la demande (ex: baskets pour soiree dansante), elle ne doit PAS apparaitre.\n"+
+    "Reponds UNIQUEMENT en JSON valide, sans markdown, sans backticks:\n"+
+    '{"ranking":[id1,id2,id3,id4,id5],"explanation":"2 phrases: pourquoi ces tenues et pourquoi elles sont adaptees a la situation precisement"}';
+
+  fetch("/.netlify/functions/claude",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      messages:[{role:"user",content:prompt}]
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.error){
+      console.error("Claude API error:",data.error);
+      showTab("r");
+      var badge=document.getElementById("r-badge");
+      if(badge) badge.textContent="Recherche classique";
+      return;
+    }
+    var text = data.content && data.content[0] && data.content[0].text;
+    if(!text) throw new Error("No response");
+    text = text.replace(/```json|```/g,"").trim();
+    var parsed = JSON.parse(text);
+    if(parsed.ranking && parsed.ranking.length>0){
+      claudeRanking = parsed.ranking;
+      claudeExplanation = parsed.explanation || "";
+      applyClaudeRanking();
+    }
+  })
+  .catch(function(err){
+    console.error("Claude search error:",err);
+    showTab("r");
+    var badge=document.getElementById("r-badge");
+    if(badge) badge.textContent="Recherche classique";
+  });
+}
+
+function applyClaudeRanking(){
+  if(!claudeRanking) return;
+  // Find best outfit from Claude's ranking
+  var best = null;
+  for(var i=0;i<claudeRanking.length;i++){
+    var found = outfits.find(function(o){return o.id===claudeRanking[i];});
+    if(found){best=found;break;}
+  }
+  if(!best) return;
+
+  // Update main display
+  S.outfitId=best.id;
+  S.sel={top:0,bot:0,sho:0};
+  S.lastKey="top";
+  document.getElementById("ctx-txt").innerHTML=
+    "<strong>CLAIA</strong> \u2014 "+claudeExplanation;
+  document.getElementById("r-badge").textContent="S\u00E9lection IA pour vous";
+  document.getElementById("r-name").textContent=best.name;
+  document.getElementById("r-sub").textContent=best.sub;
+  setMannImg(mainImg(best));
+  var ms=document.getElementById("mstrip");
+  if(ms) ms.classList.add("hidden");
+  renderPieces();
+
+  // Show other Claude suggestions in og
+  var og=document.getElementById("og");
+  og.innerHTML="";
+  var shown=0;
+  for(var j=0;j<claudeRanking.length && shown<4;j++){
+    var rid=claudeRanking[j];
+    if(rid===best.id) continue;
+    var ro=outfits.find(function(o){return o.id===rid;});
+    if(!ro) continue;
+    var div=document.createElement("div");div.className="ot";
+    var img=document.createElement("img");img.src=I[ro.main]||"";img.alt="";
+    var info=document.createElement("div");info.className="ot-info";
+    info.innerHTML="<div class='ot-name'>"+ro.name+"</div><div class='ot-sub'>"+ro.sub+"</div>";
+    div.appendChild(img);div.appendChild(info);
+    (function(outfit){
+      div.addEventListener("click",function(){
+        S.outfitId=outfit.id;S.sel={top:0,bot:0,sho:0};S.lastKey="top";
+        document.getElementById("r-badge").textContent="S\u00E9lection IA";
+        document.getElementById("r-name").textContent=outfit.name;
+        document.getElementById("r-sub").textContent=outfit.sub;
+        setMannImg(mainImg(outfit));
+        var ms2=document.getElementById("mstrip");
+        if(ms2) ms2.classList.add("hidden");
+        renderPieces();
+        window.scrollTo({top:0,behavior:"smooth"});
+      });
+    })(ro);
+    og.appendChild(div);
+    shown++;
+  }
+}
+// ============================================================
+// EVENTS
+document.getElementById("logo").onclick=function(){showTab("d");};
+document.getElementById("nt-d").onclick=function(){showTab("d");};
+document.getElementById("nt-v").onclick=function(){showTab("v");};
+document.getElementById("nt-c").onclick=function(){showTab("c");};
+document.getElementById("nt-r").onclick=function(){showTab("r");};
+document.getElementById("sbtn").onclick=function(){
+  var query = document.getElementById("srch").value.trim();
+  if(!query){S.search="";showTab("r");return;}
+  S.search = query;
+  claudeSearch(query);
+};
+document.getElementById("srch").onkeydown=function(e){
+  if(e.key==="Enter"){
+    var query=this.value.trim();
+    if(!query){S.search="";showTab("r");return;}
+    S.search=query;
+    claudeSearch(query);
+  }
+};
+document.getElementById("gen-btn").onclick=function(){S.search=document.getElementById("srch").value;showTab("r");};
+document.getElementById("refine").onclick=function(){showTab("d");};
+document.getElementById("reset-btn").onclick=function(){document.querySelectorAll(".chip").forEach(function(c){c.classList.remove("on");});S.styles=[];S.occ="all";document.getElementById("sel-occ").value="all";};
+document.getElementById("cin-back").onclick=function(){showTab("d");};
+document.getElementById("cin-gen").onclick=function(){S.search=document.getElementById("srch").value;showTab("r");};
+document.getElementById("budget").oninput=function(){document.getElementById("bval").textContent="\u20AC"+this.value;};
+document.getElementById("sel-occ").onchange=function(){S.occ=this.value;};
+document.getElementById("style-chips").onclick=function(e){
+  if(!e.target.classList.contains("chip"))return;
+  e.target.classList.toggle("on");
+  S.styles=[];
+  this.querySelectorAll(".chip.on").forEach(function(c){if(c.getAttribute("data-s"))S.styles.push(c.getAttribute("data-s"));});
+};
+document.getElementById("avoid-chips").onclick=function(e){if(e.target.classList.contains("chip"))e.target.classList.toggle("on");};
+document.getElementById("mg").onclick=function(e){
+  var opt=e.target.closest(".mo");if(!opt)return;
+  this.querySelectorAll(".mo").forEach(function(o){o.classList.remove("on");});
+  opt.classList.add("on");S.morph=opt.getAttribute("data-m");
+  if(S.morph!=="tall"){S.outfitId=5;S.sel={top:0,bot:0,sho:0};}
+  var ms=document.getElementById("mstrip");
+  if(ms){if(isBold()){ms.classList.remove("hidden");ms.querySelectorAll(".msb").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-m")===S.morph);});}else{ms.classList.add("hidden");}}
+};
+document.getElementById("cin-grid").onclick=function(e){
+  var c=e.target.closest(".cc");if(!c)return;
+  this.querySelectorAll(".cc").forEach(function(x){x.classList.remove("on");});c.classList.add("on");
+};
+document.getElementById("mstrip").onclick=function(e){
+  var b=e.target.closest(".msb");if(!b)return;
+  this.querySelectorAll(".msb").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
+  var m=b.getAttribute("data-m");
+  S.morph=m;
+  setMannImg(I[morphToT5[m]]||I["t5"]);
+};
+document.getElementById("vs-budget").oninput=function(){document.getElementById("vs-bval").textContent="\u20AC"+this.value;};
+document.getElementById("vs-type").onclick=function(e){
+  if(!e.target.classList.contains("vs-chip"))return;
+  this.querySelectorAll(".vs-chip").forEach(function(c){c.classList.remove("on");});e.target.classList.add("on");
+};
+var dzEl=document.getElementById("dz");
+var fiEl=document.getElementById("file-inp");
+var pvEl=document.getElementById("dz-preview");
+document.getElementById("dz-btn").onclick=function(e){e.stopPropagation();fiEl.click();};
+document.getElementById("dz-change").onclick=function(e){e.stopPropagation();fiEl.click();};
+dzEl.onclick=function(){fiEl.click();};
+dzEl.ondragover=function(e){e.preventDefault();};
+dzEl.ondrop=function(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f)handleFile(f);};
+fiEl.onchange=function(){if(this.files[0])handleFile(this.files[0]);};
+function handleFile(f){
+  var r=new FileReader();
+  r.onload=function(e){
+    pvEl.src=e.target.result;pvEl.style.display="block";
+    dzEl.classList.add("filled");
+    dzEl.querySelectorAll(".dz-title,.dz-sub,.dz-btn").forEach(function(el){el.style.display="none";});
+    document.getElementById("dz-change").style.display="block";
+    document.getElementById("vs-empty").style.display="none";
+  };
+  r.readAsDataURL(f);
+}
+document.getElementById("vs-sbtn").onclick=function(){
+  if(!pvEl.src||pvEl.src===window.location.href){dzEl.style.outline="2px solid var(--ca)";setTimeout(function(){dzEl.style.outline="";},800);return;}
+  var area=document.getElementById("vs-area");area.classList.remove("hidden");
+  document.getElementById("vs-load").style.display="block";
+  document.getElementById("vs-res").classList.add("hidden");
+  var txts=["Analyse de l'image...","Identification des pi\u00E8ces...","Recherche dans le catalogue...","Composition des suggestions..."];
+  var idx=0;var iv=setInterval(function(){idx=(idx+1)%txts.length;document.getElementById("vs-ltxt").textContent=txts[idx];},700);
+  setTimeout(function(){
+    clearInterval(iv);
+    document.getElementById("vs-load").style.display="none";
+    var grid=document.getElementById("vs-rg");grid.innerHTML="";
+    var budget=parseInt(document.getElementById("vs-budget").value);
+    var shown=outfits.filter(function(o){return o.pieces.reduce(function(s,p){return s+p.price[0];},0)<=budget*1.3;});
+    if(shown.length<4)shown=outfits;
+    shown.slice(0,4).forEach(function(o,i){
+      var card=document.createElement("div");card.className="vs-card";
+      var img=document.createElement("img");img.src=I[o.main]||"";img.alt="";img.onerror=function(){this.style.background="var(--cb)";this.style.opacity="0.3";};
+      var info=document.createElement("div");info.className="vs-card-info";
+      var tot=o.pieces.reduce(function(s,p){return s+p.price[0];},0);
+      info.innerHTML="<div class='vs-match'>"+["98% similaire","94% similaire","89% similaire","83% similaire"][i]+"</div><div class='vs-cname'>"+o.name+"</div><div class='vs-cprice'>\u20AC"+tot+"</div>";
+      card.appendChild(img);card.appendChild(info);
+      card.onclick=function(){
+        S.outfitId=o.id;S.sel={top:0,bot:0,sho:0};S.lastKey="top";
+        document.getElementById("r-badge").textContent="S\u00E9lectionn\u00E9 depuis la recherche visuelle";
+        document.getElementById("ctx-txt").innerHTML="R\u00E9sultat de votre <strong>recherche visuelle</strong>";
+        showTab("r");
+      };
+      grid.appendChild(card);
+    });
+    document.getElementById("vs-rlbl").textContent=Math.min(shown.length,4)+" tenues similaires trouv\u00E9es";
+    document.getElementById("vs-res").classList.remove("hidden");
+  },2800);
+};
+
+// Init mannequin photos in filters
+var morphKeys={slim:"m_slim",athletic:"m_athletic",curvy:"m_curvy",petite:"m_petite",tall:"m_tall"};
+Object.keys(morphKeys).forEach(function(m){
+  var el=document.getElementById("mi-"+m);
+  if(el)el.src=I[morphKeys[m]]||"";
+});
+</script>
+</body>
+</html>
