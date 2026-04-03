@@ -1275,18 +1275,7 @@ document.getElementById("cin-grid").onclick=function(e){
     showTab("r");
     setTimeout(function(){ S.forcedOutfitId = null; }, 200);
   }
-};S.lastKey="top";
-      document.getElementById("r-badge").textContent="Inspir\u00E9 de "+filmName;
-      document.getElementById("r-name").textContent=outfit.name;
-      document.getElementById("r-sub").textContent=outfit.sub;
-      setMannImg(mainImg(outfit));
-      var ms=document.getElementById("mstrip");if(ms)ms.classList.add("hidden");
-      renderPieces();
-      showTab("r");
-    }
-  }
-};
-document.getElementById("mstrip").onclick=function(e){
+};document.getElementById("mstrip").onclick=function(e){
   var b=e.target.closest(".msb");if(!b)return;
   this.querySelectorAll(".msb").forEach(function(x){x.classList.remove("on");});b.classList.add("on");
   var m=b.getAttribute("data-m");
