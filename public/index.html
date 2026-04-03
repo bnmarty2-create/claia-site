@@ -114,6 +114,12 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--ch)}
 .vs-match{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ca);margin-bottom:.2rem}
 .vs-cname{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic}
 .vs-cprice{font-family:'Cormorant Garamond',serif;font-size:14px;margin-top:.3rem}
+
+@keyframes claia-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#claia-spinner { position:absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; background:var(--cb); z-index:2; }
 </style>
 </head>
 <body>
@@ -796,10 +802,37 @@ function buildCatalogue(){
 }
 
 function claudeSearch(query){
-  // Show loading state
+  // Show loading state with spinner
   showTab("r");
   var badge = document.getElementById("r-badge");
-  if(badge) badge.textContent = "CLAIA recherche...";
+  if(badge) badge.textContent = "CLAIA analyse votre demande...";
+
+  // Hide mannequin image and show spinner
+  var mannImg = document.getElementById("mann-img");
+  var mannContainer = mannImg ? mannImg.parentElement : null;
+  if(mannImg) mannImg.style.opacity = "0";
+
+  // Create spinner if not exists
+  var spinner = document.getElementById("claia-spinner");
+  if(!spinner && mannContainer){
+    spinner = document.createElement("div");
+    spinner.id = "claia-spinner";
+    spinner.innerHTML = [
+      "<div style='display:flex;flex-direction:column;align-items:center;justify-content:center;height:300px;gap:16px;'>",
+      "<div style='width:48px;height:48px;border:3px solid #e0e0e0;border-top:3px solid #111;border-radius:50%;animation:claia-spin 0.8s linear infinite;'></div>",
+      "<div style='font-size:13px;color:#888;letter-spacing:0.05em;'>CLAIA recherche...</div>",
+      "</div>"
+    ].join("");
+    mannContainer.appendChild(spinner);
+  } else if(spinner){
+    spinner.style.display = "block";
+  }
+
+  // Hide outfit name/sub during loading
+  var rName = document.getElementById("r-name");
+  var rSub = document.getElementById("r-sub");
+  if(rName) rName.textContent = "";
+  if(rSub) rSub.textContent = "";
 
   var catalogue = buildCatalogue();
   // Detect context clues from query for extra rules
@@ -807,9 +840,18 @@ function claudeSearch(query){
   var extraRules = "";
 
   // === FILTRES VETEMENTS (non-negotiables) ===
-  if(q.indexOf("jupe")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande une JUPE - proposer UNIQUEMENT tenues avec jupe (mini, longue, plissee). EXCLURE pantalon, jean, short, robe.\n";
-  if(q.indexOf("pantalon")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande un PANTALON - EXCLURE toute tenue avec jupe, short ou robe.\n";
-  if(q.indexOf("robe")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande une ROBE - proposer UNIQUEMENT des robes completes. EXCLURE separates.\n";
+  var sansJupe = (q.indexOf("sans jupe")>=0||q.indexOf("pas de jupe")>=0||q.indexOf("pas jupe")>=0);
+  var avecJupe = (q.indexOf("jupe")>=0 && !sansJupe);
+  if(sansJupe) extraRules += "FILTRE ABSOLU: L'utilisatrice veut SANS JUPE. EXCLURE toutes tenues avec jupe. Proposer uniquement pantalons, jeans, shorts, robes.\n";
+  if(avecJupe) extraRules += "FILTRE ABSOLU VETEMENT: demande une JUPE - proposer UNIQUEMENT tenues avec jupe (mini, longue, plissee). EXCLURE pantalon, jean, short.\n";
+  var sansPantalon = (q.indexOf("sans pantalon")>=0||q.indexOf("pas de pantalon")>=0);
+  var avecPantalon = (q.indexOf("pantalon")>=0 && !sansPantalon);
+  if(sansPantalon) extraRules += "FILTRE ABSOLU: veut SANS PANTALON. Proposer jupes, shorts ou robes uniquement.\n";
+  if(avecPantalon) extraRules += "FILTRE ABSOLU VETEMENT: demande un PANTALON - EXCLURE toute tenue avec jupe, short ou robe.\n";
+  var sansRobe = (q.indexOf("sans robe")>=0||q.indexOf("pas de robe")>=0);
+  var avecRobe = (q.indexOf("robe")>=0 && !sansRobe);
+  if(sansRobe) extraRules += "FILTRE ABSOLU: veut SANS ROBE. Proposer uniquement des separates (hauts + bas).\n";
+  if(avecRobe) extraRules += "FILTRE ABSOLU VETEMENT: demande une ROBE - proposer UNIQUEMENT des robes completes.\n";
   if(q.indexOf("jean")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande un JEAN - privilegier tenues avec jean specifiquement.\n";
   if(q.indexOf("short")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande un SHORT - proposer UNIQUEMENT tenues avec short.\n";
   if(q.indexOf("veste")>=0||q.indexOf("blazer")>=0||q.indexOf("blouson")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande une VESTE/BLAZER/BLOUSON - proposer UNIQUEMENT tenues avec veste, blazer ou blouson en haut.\n";
@@ -820,6 +862,9 @@ function claudeSearch(query){
   // === FILTRES SAISON ===
   if(q.indexOf("hiver")>=0||q.indexOf("froid")>=0||q.indexOf("frisquet")>=0){
     extraRules += "SAISON HIVER: Privilegier tenues avec vestes, blousons, cardigans, matieres epaisses. EXCLURE bralettes, shorts, tops courts, robes legeres estivales, lin, vichy. Privilegier les pantalons longs couvrants.\n";
+  }
+  if(q.indexOf("plage")>=0||q.indexOf("beach")>=0||q.indexOf("mer")>=0||q.indexOf("piscine")>=0){
+    extraRules += "CONTEXTE PLAGE/MER: Privilegier shorts, jupes courtes legeres, robes de plage, debardeurs, lin, vichy. Sandales plates ou baskets legeres. EXCLURE escarpins, blazers, pantalons tailored, sequins.\n";
   }
   if(q.indexOf("ete")>=0||q.indexOf("chaud")>=0||q.indexOf("chaleur")>=0||q.indexOf("canicule")>=0){
     extraRules += "SAISON ETE: Privilegier robes legeres, shorts, jupes courtes, debardeurs, lin, vichy, matieres legeres. EXCLURE blousons epais, cardigans lourds, satin chaud.\n";
@@ -893,6 +938,40 @@ function claudeSearch(query){
     extraRules += "ROMANTIQUE: Privilegier dentelle, floral, robes fluides, couleurs douces. Eviter streetwear et looks trop masculins.\n";
   }
 
+  if(q.indexOf("maison")>=0||q.indexOf("canap")>=0||q.indexOf("chez soi")>=0||q.indexOf("rester")>=0||q.indexOf("soiree pyjama")>=0){
+    extraRules += "CONTEXTE MAISON/CANAPE: Confort total. Privilegier tenues decontractees, douces, pratiques. Sweat, pantalon large, blouson leger. EXCLURE escarpins, jupes courtes, sequins, tenues fragiles.\n";
+  }
+  if(q.indexOf("beau")>=0||q.indexOf("belle")>=0||q.indexOf("famille")>=0||q.indexOf("parents")>=0||q.indexOf("repas de famille")>=0||q.indexOf("belle famille")>=0){
+    extraRules += "CONTEXTE REPAS FAMILLE/BEAUX-PARENTS: Soigne mais pas trop habille. Eviter le trop sexy ou trop decontracte. Privilegier un look propre et elegant sans etre guinde. Mocassins ou escarpins bas. Pas de shorts ni de crop tops.\n";
+  }
+  if(q.indexOf("anniversaire")>=0||q.indexOf("fete")>=0||q.indexOf("birthday")>=0){
+    extraRules += "CONTEXTE ANNIVERSAIRE: Festif et personnel. Couleurs vives ou details travailles (sequins, broderies). Ni trop formel ni trop casual. Escarpins ou baskets stylees selon l'ambiance.\n";
+  }
+  if(q.indexOf("afterwork")>=0||q.indexOf("after work")>=0||q.indexOf("apres bureau")>=0||q.indexOf("happy hour")>=0){
+    extraRules += "CONTEXTE AFTERWORK: Transition bureau-soiree. Privilegier tenues qui fonctionnent au bureau et tiennent en soiree. Blazer + jean ou pantalon tailored + top elegant. Escarpins ou mocassins chics.\n";
+  }
+  if(q.indexOf("dejeuner d affaires")>=0||q.indexOf("business")>=0||q.indexOf("client")>=0||q.indexOf("professionnel")>=0){
+    extraRules += "CONTEXTE DEJEUNER D'AFFAIRES: Professionnel et impeccable. Privilegier tailored, couleurs sobres (navy, noir, camel). EXCLURE tenues trop decontractees. Escarpins ou mocassins.\n";
+  }
+  if(q.indexOf("musee")>=0||q.indexOf("theatre")>=0||q.indexOf("opera")>=0||q.indexOf("spectacle")>=0||q.indexOf("culturel")>=0){
+    extraRules += "CONTEXTE CULTUREL (musee/theatre/opera): Elegant et chic sans etre trop formel. Privilegier looks soignes avec du caractere. Eviter tenues trop sportswear. Mocassins ou escarpins.\n";
+  }
+  if(q.indexOf("pique-nique")>=0||q.indexOf("pique nique")>=0||q.indexOf("parc")>=0||q.indexOf("jardin")>=0||q.indexOf("outdoor")>=0){
+    extraRules += "CONTEXTE PIQUE-NIQUE/PARC: Decontracte et pratique. Robes legeres, jupes midi, jeans. Baskets ou sandales plates obligatoires. EXCLURE escarpins, jupes trop courtes, matieres fragiles.\n";
+  }
+  if(q.indexOf("shopping")>=0||q.indexOf("courses")>=0||q.indexOf("marche")>=0){
+    extraRules += "CONTEXTE SHOPPING/COURSES: Confort et style. Jean ou pantalon large, baskets ou mocassins. Tenue pratique mais soignee. EXCLURE escarpins et tenues trop habillees.\n";
+  }
+  if(q.indexOf("city trip")>=0||q.indexOf("touriste")>=0||q.indexOf("visite")>=0||q.indexOf("touristique")>=0){
+    extraRules += "CONTEXTE CITY TRIP: Confort pour marcher toute la journee + style pour les photos. Baskets obligatoires. Jeans, robes midi, blousons pratiques. EXCLURE escarpins et tenues fragiles.\n";
+  }
+  if(q.indexOf("shooting")>=0||q.indexOf("photo")>=0||q.indexOf("instagram")>=0||q.indexOf("contenu")>=0){
+    extraRules += "CONTEXTE SHOOTING/PHOTO: Impact visuel maximal. Privilegier les tenues avec du caractere - couleurs fortes, details uniques, total looks assum\u00E9s. Ce qui est photographiable prime sur le pratique.\n";
+  }
+  if(q.indexOf("premiere")>=0||q.indexOf("red carpet")>=0||q.indexOf("tapis rouge")>=0||q.indexOf("evenement")>=0){
+    extraRules += "CONTEXTE EVENEMENT/PREMIERE: Glamour et impact. Robe longue, sequins, matieres nobles. Escarpins. Look editorialise et memorable.\n";
+  }
+
   // === TENDANCES ET INSPIRATIONS ===
   if(q.indexOf("annee 70")>=0||q.indexOf("annees 70")>=0||q.indexOf("70s")>=0||q.indexOf("seventies")>=0){
     extraRules += "INSPIRATION 70s: Privilegier pantalons larges a pattes d'elephant, blousons, imprim\u00E9s floraux, couleurs chaudes (camel, marron, orange). Jean large indigo parfait.\n";
@@ -954,6 +1033,7 @@ function claudeSearch(query){
   if(q.indexOf("fleur")>=0||q.indexOf("floral")>=0||q.indexOf("imprime")>=0) extraRules += "MOTIF: Privilegier les tenues avec imprim\u00E9s floraux ou graphiques.\n";
 
   var prompt = "Tu es CLAIA, personal shopper expert pour Sandro Paris.\n"+
+    "REGLE ABSOLUE: La requete de l'utilisatrice (ci-dessous) est LA PRIORITE MAXIMALE et ecrase tous les autres criteres. Si la requete contredit les filtres habituels, suivre la requete.\n"+
     "Ta mission: recommander les tenues les PLUS ADAPTEES a la demande en tenant compte du style ET de la praticite.\n\n"+
     "DEMANDE: \""+query+"\"\n\n"+
     (extraRules ? "REGLES ABSOLUMENT OBLIGATOIRES - A RESPECTER STRICTEMENT:\n"+extraRules+"\n" : "")+
@@ -1007,6 +1087,10 @@ function claudeSearch(query){
   })
   .catch(function(err){
     console.error("Claude search error:",err);
+    var spinner2 = document.getElementById("claia-spinner");
+    if(spinner2) spinner2.style.display = "none";
+    var mannImg2 = document.getElementById("mann-img");
+    if(mannImg2) mannImg2.style.opacity = "1";
     showTab("r");
     var badge=document.getElementById("r-badge");
     if(badge) badge.textContent="Recherche classique";
@@ -1015,6 +1099,11 @@ function claudeSearch(query){
 
 function applyClaudeRanking(){
   if(!claudeRanking) return;
+  // Hide spinner, show mannequin
+  var spinner = document.getElementById("claia-spinner");
+  if(spinner) spinner.style.display = "none";
+  var mannImg = document.getElementById("mann-img");
+  if(mannImg) mannImg.style.opacity = "1";
   // Find best outfit from Claude's ranking
   var best = null;
   for(var i=0;i<claudeRanking.length;i++){
