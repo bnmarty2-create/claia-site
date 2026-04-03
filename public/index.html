@@ -168,11 +168,11 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--ch)}
   <div class="fl" style="margin-bottom:1.2rem">
     <label>Votre morphologie</label>
     <div class="mg" id="mg">
-      <div class="mo on" data-m="slim"><img id="mi-slim" src="" alt=""><div class="mo-lbl">Élancée</div></div>
+      <div class="mo" data-m="slim"><img id="mi-slim" src="" alt=""><div class="mo-lbl">Élancée</div></div>
       <div class="mo" data-m="athletic"><img id="mi-athletic" src="" alt=""><div class="mo-lbl">Athlétique</div></div>
       <div class="mo" data-m="curvy"><img id="mi-curvy" src="" alt=""><div class="mo-lbl">Courbes</div></div>
       <div class="mo" data-m="petite"><img id="mi-petite" src="" alt=""><div class="mo-lbl">Petite</div></div>
-      <div class="mo" data-m="tall"><img id="mi-tall" src="" alt=""><div class="mo-lbl">Grande</div></div>
+      <div class="mo on" data-m="tall"><img id="mi-tall" src="" alt=""><div class="mo-lbl">Grande</div></div>
     </div>
   </div>
   <div class="divider"></div>
@@ -256,12 +256,12 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--ch)}
     <div class="cc on"><div class="cdot" style="background:#D4537E"></div><div class="cf">Le Diable s'habille en Prada</div><div class="cch">Andy Sachs</div><div class="cer">New York, 2006</div></div>
     <div class="cc"><div class="cdot" style="background:#1D9E75"></div><div class="cf">Breakfast at Tiffany's</div><div class="cch">Holly Golightly</div><div class="cer">New York, 1961</div></div>
     <div class="cc"><div class="cdot" style="background:#5F5E5A"></div><div class="cf">À bout de souffle</div><div class="cch">Patricia Franchini</div><div class="cer">Paris, 1960</div></div>
-    <div class="cc"><div class="cdot" style="background:#185FA5"></div><div class="cf">Succession</div><div class="cch">Siobhan Roy</div><div class="cer">New York, 2018</div></div>
+    <div class="cc"><div class="cdot" style="background:#185FA5"></div><div class="cf">Succession Roy</div><div class="cch">Siobhan Roy</div><div class="cer">New York, 2018</div></div>
     <div class="cc"><div class="cdot" style="background:#854F0B"></div><div class="cf">Saltburn</div><div class="cch">Venetia Catton</div><div class="cer">Angleterre, 2023</div></div>
-    <div class="cc"><div class="cdot" style="background:#993556"></div><div class="cf">Emily in Paris</div><div class="cch">Sylvie Grateau</div><div class="cer">Paris, 2020</div></div>
+    <div class="cc"><div class="cdot" style="background:#993556"></div><div class="cf">Emily in Paris Grateau</div><div class="cch">Sylvie Grateau</div><div class="cer">Paris, 2020</div></div>
     <div class="cc"><div class="cdot" style="background:#BA7517"></div><div class="cf">The Great Gatsby</div><div class="cch">Daisy Buchanan</div><div class="cer">New York, 1920s</div></div>
     <div class="cc"><div class="cdot" style="background:#2C2C2A"></div><div class="cf">Pulp Fiction</div><div class="cch">Mia Wallace</div><div class="cer">Los Angeles, 1994</div></div>
-    <div class="cc"><div class="cdot" style="background:#0F6E56"></div><div class="cf">Call Me By Your Name</div><div class="cch">Elio Perlman</div><div class="cer">Italie, 1983</div></div>
+    <div class="cc"><div class="cdot" style="background:#0F6E56"></div><div class="cf">Call Me By Your Name Elio</div><div class="cch">Elio Perlman</div><div class="cer">Italie, 1983</div></div>
     <div class="cc"><div class="cdot" style="background:#C4954A"></div><div class="cf">Tulum Boho Luxe</div><div class="cch">La voyageuse</div><div class="cer">Mexique, aujourd'hui</div></div>
     <div class="cc"><div class="cdot" style="background:#3B82C4"></div><div class="cf">Gossip Girl</div><div class="cch">Blair Waldorf</div><div class="cer">New York, 2007</div></div>
     <div class="cc"><div class="cdot" style="background:#1A1A2E"></div><div class="cf">Succession Siobhan</div><div class="cch">Siobhan Roy</div><div class="cer">New York, 2023</div></div>
@@ -1245,12 +1245,15 @@ document.getElementById("mg").onclick=function(e){
   if(ms){if(isBold()){ms.classList.remove("hidden");ms.querySelectorAll(".msb").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-m")===S.morph);});}else{ms.classList.add("hidden");}}
 };
 var cinemaToOutfit = {
-  "Diable":1,
-  "Breakfast":1,
+  "Le Diable":1,
+  "Breakfast at":1,
   "bout de souffle":9,
+  "Succession Roy":27,
   "Saltburn":13,
+  "Emily in Paris Grateau":5,
   "Great Gatsby":24,
   "Pulp Fiction":17,
+  "Call Me By Your Name Elio":20,
   "Tulum Boho":18,
   "Gossip Girl":24,
   "Succession Siobhan":14,
@@ -1261,6 +1264,7 @@ var cinemaToOutfit = {
   "Dieu cr":12,
   "Clueless":20
 };
+
 document.getElementById("cin-grid").onclick=function(e){
   var c=e.target.closest(".cc");if(!c)return;
   this.querySelectorAll(".cc").forEach(function(x){x.classList.remove("on");});c.classList.add("on");
