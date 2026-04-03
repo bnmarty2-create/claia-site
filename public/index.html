@@ -262,6 +262,15 @@ body{font-family:'Jost',sans-serif;background:var(--cr);color:var(--ch)}
     <div class="cc"><div class="cdot" style="background:#BA7517"></div><div class="cf">The Great Gatsby</div><div class="cch">Daisy Buchanan</div><div class="cer">New York, 1920s</div></div>
     <div class="cc"><div class="cdot" style="background:#2C2C2A"></div><div class="cf">Pulp Fiction</div><div class="cch">Mia Wallace</div><div class="cer">Los Angeles, 1994</div></div>
     <div class="cc"><div class="cdot" style="background:#0F6E56"></div><div class="cf">Call Me By Your Name</div><div class="cch">Elio Perlman</div><div class="cer">Italie, 1983</div></div>
+    <div class="cc"><div class="cdot" style="background:#C4954A"></div><div class="cf">Tulum Boho Luxe</div><div class="cch">La voyageuse</div><div class="cer">Mexique, aujourd'hui</div></div>
+    <div class="cc"><div class="cdot" style="background:#3B82C4"></div><div class="cf">Gossip Girl</div><div class="cch">Blair Waldorf</div><div class="cer">New York, 2007</div></div>
+    <div class="cc"><div class="cdot" style="background:#1A1A2E"></div><div class="cf">Succession Siobhan</div><div class="cch">Siobhan Roy</div><div class="cer">New York, 2023</div></div>
+    <div class="cc"><div class="cdot" style="background:#E8365D"></div><div class="cf">Emily in Paris Sylvie</div><div class="cch">Sylvie Grateau</div><div class="cer">Paris, 2020</div></div>
+    <div class="cc"><div class="cdot" style="background:#7BA05B"></div><div class="cf">Call Me By Your Name Edit</div><div class="cch">Elio Perlman</div><div class="cer">Italie, 1983</div></div>
+    <div class="cc"><div class="cdot" style="background:#F4D03F"></div><div class="cf">Midsommar</div><div class="cch">Dani Ardor</div><div class="cer">Suède, 2019</div></div>
+    <div class="cc"><div class="cdot" style="background:#2471A3"></div><div class="cf">Sex Education</div><div class="cch">Maeve Wiley</div><div class="cer">Angleterre, 2019</div></div>
+    <div class="cc"><div class="cdot" style="background:#E74C3C"></div><div class="cf">Et Dieu créa la femme</div><div class="cch">Juliette</div><div class="cer">Saint-Tropez, 1956</div></div>
+    <div class="cc"><div class="cdot" style="background:#9B59B6"></div><div class="cf">Clueless</div><div class="cch">Cher Horowitz</div><div class="cer">Los Angeles, 1995</div></div>
   </div>
   <div class="cbar" style="margin-top:1.5rem">
     <button class="btng" id="cin-back">&#8592; Découvrir</button>
@@ -408,7 +417,7 @@ var I = {
 };
 
 var S = {
-  morph: "slim",
+  morph: "tall",
   occ: "all",
   styles: ["minimal","parisian"],
   search: "",
@@ -1236,10 +1245,21 @@ document.getElementById("mg").onclick=function(e){
   if(ms){if(isBold()){ms.classList.remove("hidden");ms.querySelectorAll(".msb").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-m")===S.morph);});}else{ms.classList.add("hidden");}}
 };
 var cinemaToOutfit = {
-  "Diable":1,"Breakfast":1,"bout de souffle":9,"Succession":14,"Saltburn":13,
-  "Emily in Paris":5,"Great Gatsby":24,"Pulp Fiction":17,"Call Me By":13,
-  "Tulum":18,"Gossip Girl":24,"Siobhan":14,"Midsommar":16,
-  "Sex Education":15,"Dieu cr":12,"Clueless":20
+  "Diable":1,
+  "Breakfast":1,
+  "bout de souffle":9,
+  "Saltburn":13,
+  "Great Gatsby":24,
+  "Pulp Fiction":17,
+  "Tulum Boho":18,
+  "Gossip Girl":24,
+  "Succession Siobhan":14,
+  "Emily in Paris Sylvie":5,
+  "Call Me By Your Name Edit":13,
+  "Midsommar":16,
+  "Sex Education":15,
+  "Dieu cr":12,
+  "Clueless":20
 };
 document.getElementById("cin-grid").onclick=function(e){
   var c=e.target.closest(".cc");if(!c)return;
