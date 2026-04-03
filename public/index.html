@@ -420,175 +420,175 @@ var S = {
 var morphToT5 = {slim:"t5_slim",curvy:"t5_curvy",petite:"t5_petite",athletic:"t5_athletic",tall:"t5"};
 
 var outfits = [
-  {id:1,name:"Editorial Parisienne",sub:"Top noir - Jean noir - Mocassins",cat:"work",styles:["minimal","parisian","tailored"],main:"t1",
+  {id:1,name:"Editorial Parisienne",sub:"Top noir - Jean noir - Mocassins",cat:"work",styles:["minimal","parisian","tailored"],meta:{matieres:"coton cotele,denim",couleurs:"noir,ivoire",longueur:"long",saison:"printemps,automne,hiver",silhouette:"ajuste haut,droit bas",chaussure:"mocassin",intensite:"chic decontracte"},main:"t1",
    pieces:[
     {cat:"Haut",name:"Top col\u00E9 col carr\u00E9",brand:"Sandro",price:[179,195,155,129],mi:["t1","t1","t1","t1"],prod:["p_top_noir","p_blazer_marron","p_blazer_marine","p_chemise_bleue"],lbl:["Top noir Sandro","Blazer tweed marron","Blazer marine","Chemise bleu ciel"]},
     {cat:"Bas",name:"Jean noir droit",brand:"Sandro",price:[120,89,110,145],mi:["t1","t1","t1","t1"],prod:["p_jean_noir","p_jupe_noire","p_pantalon_camel","p_jupe_motif"],lbl:["Jean noir","Jupe noire volants","Pantalon camel","Jupe \u00E0 motif"]},
     {cat:"Chaussures",name:"Mocassins ivoire clout\u00E9s",brand:"Zara",price:[89,120,95,75],mi:["t1","t1","t1","t1"],prod:["p_mocassins","p_escarpin_dore","p_escarpin_blanc","p_basket_blanc"],lbl:["Mocassins ivoire","Escarpins dor\u00E9s","Escarpins blancs","Baskets blanches"]}
    ]},
-  {id:2,name:"Sandro Collector",sub:"Veste clout\u00E9e - Jean palmiers - Baskets rouges",cat:"evening",styles:["parisian","avantgarde","street"],main:"t2",
+  {id:2,name:"Sandro Collector",sub:"Veste clout\u00E9e - Jean palmiers - Baskets rouges",cat:"evening",styles:["parisian","avantgarde","romantic"],meta:{matieres:"tissu structure cloute,denim brode",couleurs:"dore,bleu indigo,rouge",longueur:"long",saison:"printemps,automne",silhouette:"structuree haut,droite bas",chaussure:"basket",intensite:"statement audacieux"},main:"t2",
    pieces:[
     {cat:"Haut",name:"Veste clout\u00E9e dor\u00E9e",brand:"Sandro",price:[195,179,155,129],mi:["t2","t2","t2","t2"],prod:["p_veste_cloutee","p_blazer_noir","p_blazer_marron","p_chemise_rayee"],lbl:["Veste clout\u00E9e marine","Blazer noir cargo","Blazer tweed","Chemise ray\u00E9e APC"]},
     {cat:"Bas",name:"Jean brod\u00E9 palmiers",brand:"Sandro",price:[165,120,110,145],mi:["t2","t2","t2","t2"],prod:["p_jean_brode","p_jean_noir","p_pantalon_camel","p_jupe_noire"],lbl:["Jean brod\u00E9 palmiers","Jean noir","Pantalon camel","Jupe noire volants"]},
     {cat:"Chaussures",name:"Baskets rouges montantes",brand:"Sandro",price:[120,89,75,95],mi:["t2","t2","t2","t2"],prod:["p_basket_rouge","p_mocassins","p_basket_blanc","p_escarpin_dore"],lbl:["Baskets rouges","Mocassins ivoire","Baskets blanches","Escarpins dor\u00E9s"]}
    ]},
-  {id:3,name:"French Riviera",sub:"Chemise beige - Jupe pliss\u00E9e - Baskets blanches",cat:"casual",styles:["minimal","casual","boheme"],main:"t3",
+  {id:3,name:"French Riviera",sub:"Chemise beige - Jupe pliss\u00E9e - Baskets blanches",cat:"casual",styles:["minimal","casual","boheme"],meta:{matieres:"coton leger,voile plisse",couleurs:"beige,blanc",longueur:"court",saison:"printemps,ete",silhouette:"crop haut,fluide bas",chaussure:"basket",intensite:"cadre informel,decontracte chic"},main:"t3",
    pieces:[
     {cat:"Haut",name:"Chemise beige crop",brand:"Sandro",price:[155,179,129,195],mi:["t3","t3","t3","t3"],prod:["p_chemise_beige","p_blazer_marron","p_chemise_rayee","p_chemise_bleue"],lbl:["Chemise beige Sandro","Blazer tweed","Chemise ray\u00E9e APC","Chemise bleu ciel"]},
     {cat:"Bas",name:"Jupe pliss\u00E9e beige",brand:"Sandro",price:[89,120,110,145],mi:["t3","t3","t3","t3"],prod:["p_jupe_beige","p_jean_noir","p_pantalon_camel","p_jupe_motif"],lbl:["Jupe beige pliss\u00E9e","Jean noir","Pantalon camel","Jupe \u00E0 motif"]},
     {cat:"Chaussures",name:"Baskets blanches Sandro",brand:"Sandro",price:[75,89,95,120],mi:["t3","t3","t3","t3"],prod:["p_basket_blanc","p_mocassins","p_escarpin_dore","p_veja"],lbl:["Baskets blanches","Mocassins ivoire","Escarpins dor\u00E9s","Veja multicolore"]}
    ]},
-  {id:4,name:"APC Weekender",sub:"Chemise ray\u00E9e - Pantalon marine - Baskets marron",cat:"casual",styles:["minimal","casual","parisian"],main:"t4",
+  {id:4,name:"APC Weekender",sub:"Chemise ray\u00E9e - Pantalon marine - Baskets marron",cat:"casual",styles:["minimal","casual","parisian"],meta:{matieres:"coton oxford raye,laine legere",couleurs:"bleu blanc raye,marine,marron",longueur:"long",saison:"printemps,automne",silhouette:"oversize haut,droit bas",chaussure:"basket",intensite:"casual luxe,decontracte soigne"},main:"t4",
    pieces:[
     {cat:"Haut",name:"Chemise oversize ray\u00E9e",brand:"A.P.C.",price:[129,155,179,195],mi:["t4","t4","t4","t4"],prod:["p_chemise_rayee","p_blazer_marine","p_blazer_marron","p_chemise_bleue"],lbl:["Chemise ray\u00E9e APC","Blazer marine","Blazer tweed","Chemise bleu ciel"]},
     {cat:"Bas",name:"Pantalon tailleur marine",brand:"Mango",price:[89,120,110,165],mi:["t4","t4","t4","t4"],prod:["p_pantalon_marine","p_jean_noir","p_pantalon_camel","p_pantalon_jaune"],lbl:["Pantalon marine","Jean noir","Pantalon camel","Pantalon jaune"]},
     {cat:"Chaussures",name:"Baskets marron Sandro",brand:"Sandro",price:[95,89,75,120],mi:["t4","t4","t4","t4"],prod:["p_basket_marron","p_mocassins","p_basket_blanc","p_escarpin_dore"],lbl:["Baskets marron","Mocassins ivoire","Baskets blanches","Escarpins dor\u00E9s"]}
    ]},
-  {id:5,name:"Bold Statement",sub:"Blazer marine - Pantalon jaune - Mocassins ivoire",cat:"work",styles:["parisian","tailored","avantgarde"],main:"t5",
+  {id:5,name:"Bold Statement",sub:"Blazer marine - Pantalon jaune - Mocassins ivoire",cat:"work",styles:["parisian","tailored","minimal"],meta:{matieres:"laine structuree,crepe fluide",couleurs:"marine,jaune paille,ivoire",longueur:"long",saison:"printemps,automne,hiver",silhouette:"structuree haut,large bas",chaussure:"mocassin",intensite:"power dressing,statement colore,decale,cadre formel occasionnel"},main:"t5",
    pieces:[
     {cat:"Haut",name:"Blazer double boutonnage marine",brand:"Sandro",price:[195,179,155,129],mi:["t5","v_h1","v_h2","v_h3"],prod:["p_blazer_marine","p_blazer_marron","p_chemise_rayee","p_chemise_bleue"],lbl:["Blazer marine Sandro","Blazer tweed marron","Chemise ray\u00E9e APC","Chemise bleu ciel"]},
     {cat:"Bas",name:"Pantalon large jaune",brand:"Sandro",price:[110,145,99,89],mi:["t5","v_b1","v_b2","v_b3"],prod:["p_pantalon_jaune","p_jupe_noire","p_pantalon_camel","p_jupe_motif"],lbl:["Pantalon jaune","Jupe noire volants","Pantalon camel","Jupe \u00E0 motif"]},
     {cat:"Chaussures",name:"Mocassins ivoire clout\u00E9s",brand:"Zara",price:[89,120,95,75],mi:["t5","v_s1","v_s2","v_s3"],prod:["p_mocassins","p_escarpin_dore","p_escarpin_blanc","p_basket_blanc"],lbl:["Mocassins ivoire","Escarpins dor\u00E9s","Escarpins blancs","Baskets blanches"]}
    ]},
-  {id:6,name:"Parisian Evening",sub:"Veste tweed - Jupe volants - Sandales",cat:"evening",styles:["parisian","romantic","tailored"],main:"t6",
+  {id:6,name:"Parisian Evening",sub:"Veste tweed - Jupe volants - Sandales",cat:"evening",styles:["parisian","romantic","tailored"],meta:{matieres:"tweed,voile fluide",couleurs:"marron blanc,noir",longueur:"maxi",saison:"automne,hiver",silhouette:"structuree haut,fluide volumineuse bas",chaussure:"sandale compensee",intensite:"soiree romantique,elegance parisienne"},main:"t6",
    pieces:[
     {cat:"Haut",name:"Veste tweed col blanc",brand:"Sandro",price:[179,195,155,129],mi:["t6","t6","t6","t6"],prod:["p_blazer_marron","p_blazer_marine","p_chemise_rayee","p_chemise_bleue"],lbl:["Veste tweed marron","Blazer marine","Chemise ray\u00E9e","Chemise bleu ciel"]},
     {cat:"Bas",name:"Jupe longue noire \u00E0 volants",brand:"Sandro",price:[145,110,120,89],mi:["t6","t6","t6","t6"],prod:["p_jupe_noire","p_pantalon_jaune","p_pantalon_camel","p_jean_noir"],lbl:["Jupe noire volants","Pantalon jaune","Pantalon camel","Jean noir"]},
     {cat:"Chaussures",name:"Sandales compens\u00E9es marine",brand:"Mango",price:[89,120,95,75],mi:["t6","t6","t6","t6"],prod:["p_escarpin_dore","p_mocassins","p_escarpin_blanc","p_basket_blanc"],lbl:["Sandales compens\u00E9es","Mocassins ivoire","Escarpins blancs","Baskets blanches"]}
    ]},
-  {id:7,name:"Sporty Luxe",sub:"Blazer cargo - Jean palmiers - Baskets blanches",cat:"casual",styles:["street","casual","avantgarde"],main:"t7",
+  {id:7,name:"Sporty Luxe",sub:"Blazer cargo - Jean palmiers - Baskets blanches",cat:"casual",styles:["street","casual","parisian"],meta:{matieres:"coton technique,denim brode",couleurs:"noir,bleu indigo,blanc",longueur:"long",saison:"printemps,automne",silhouette:"structuree haut,droite bas",chaussure:"basket",intensite:"casual luxe urbain"},main:"t7",
    pieces:[
     {cat:"Haut",name:"Blazer noir cargo",brand:"Sandro",price:[179,195,155,129],mi:["t7","t7","t7","t7"],prod:["p_blazer_noir","p_blazer_marine","p_blazer_marron","p_chemise_rayee"],lbl:["Blazer noir cargo","Blazer marine","Blazer tweed","Chemise ray\u00E9e APC"]},
     {cat:"Bas",name:"Jean brod\u00E9 palmiers",brand:"Sandro",price:[165,120,110,89],mi:["t7","t7","t7","t7"],prod:["p_pantalon_jaune","p_jean_noir","p_pantalon_camel","p_jupe_noire"],lbl:["Jean brod\u00E9 palmiers","Jean noir","Pantalon camel","Jupe noire volants"]},
     {cat:"Chaussures",name:"Baskets blanches Sandro",brand:"Sandro",price:[75,89,95,120],mi:["t7","t7","t7","t7"],prod:["p_basket_blanc","p_mocassins","p_basket_marron","p_escarpin_dore"],lbl:["Baskets blanches","Mocassins ivoire","Baskets marron","Escarpins dor\u00E9s"]}
    ]},
-  {id:8,name:"Soir\u00E9e Dor\u00E9e",sub:"Chemise bleu ciel - Pantalon camel - Escarpins dor\u00E9s",cat:"evening",styles:["parisian","romantic","tailored"],main:"t8",
+  {id:8,name:"Soir\u00E9e Dor\u00E9e",sub:"Chemise bleu ciel - Pantalon camel - Escarpins dor\u00E9s",cat:"evening",styles:["parisian","romantic","tailored"],meta:{matieres:"soie satin,crepe",couleurs:"bleu marine,camel,dore",longueur:"long",saison:"printemps,ete,automne",silhouette:"fluide haut,large bas",chaussure:"escarpin",intensite:"diner chic,soiree lumineuse,elaboree au travail"},main:"t8",
    pieces:[
     {cat:"Haut",name:"Chemise bleu ciel",brand:"Sandro",price:[155,195,179,129],mi:["t8","t8","t8","t8"],prod:["p_chemise_bleue","p_blazer_marine","p_blazer_marron","p_chemise_rayee"],lbl:["Chemise bleu ciel","Blazer marine","Blazer tweed","Chemise ray\u00E9e APC"]},
     {cat:"Bas",name:"Pantalon large camel",brand:"Sandro",price:[99,110,120,89],mi:["t8","t8","t8","t8"],prod:["p_pantalon_camel","p_pantalon_jaune","p_jupe_noire","p_jean_noir"],lbl:["Pantalon camel","Pantalon jaune","Jupe noire volants","Jean noir"]},
     {cat:"Chaussures",name:"Escarpins dor\u00E9s",brand:"Maje",price:[120,89,95,75],mi:["t8","t8","t8","t8"],prod:["p_escarpin_dore","p_mocassins","p_escarpin_blanc","p_basket_blanc"],lbl:["Escarpins dor\u00E9s","Mocassins ivoire","Escarpins blancs","Baskets blanches"]}
    ]},
-  {id:9,name:"Casual Urbain",sub:"T-shirt gris - Cargo marine - Mocassins noirs",cat:"casual",styles:["street","casual","minimal"],main:"t9",
+  {id:9,name:"Casual Urbain",sub:"T-shirt gris - Cargo marine - Mocassins noirs",cat:"casual",styles:["street","casual","minimal"],meta:{matieres:"jersey coton,coton technique",couleurs:"gris,noir",longueur:"long",saison:"toutes saisons",silhouette:"loose haut,cargo bas",chaussure:"mocassin",intensite:"quotidien decontracte,vie de tous les jours"},main:"t9",
    pieces:[
     {cat:"Haut",name:"T-shirt gris long sleeve",brand:"Sandro",price:[79,155,129,195],mi:["t9","t9","t9","t9"],prod:["p_grey_tshirt","p_chemise_rayee","p_blazer_noir","p_blazer_marine"],lbl:["T-shirt gris","Chemise ray\u00E9e APC","Blazer noir","Blazer marine"]},
     {cat:"Bas",name:"Pantalon cargo marine",brand:"Sandro",price:[110,89,99,145],mi:["t9","t9","t9","t9"],prod:["p_pantalon_cargo","p_jean_noir","p_pantalon_camel","p_jupe_noire"],lbl:["Cargo marine","Jean noir","Pantalon camel","Jupe noire volants"]},
     {cat:"Chaussures",name:"Mocassins noirs",brand:"Sandro",price:[89,75,95,120],mi:["t9","t9","t9","t9"],prod:["p_mocassins","p_basket_blanc","p_basket_marron","p_escarpin_dore"],lbl:["Mocassins noirs","Baskets blanches","Baskets marron","Escarpins dor\u00E9s"]}
    ]}
 ,
-  {id:10,name:"Riviera Moderne",sub:"Chemise jean bijou - Short ray\u00E9 bleu",cat:"casual",styles:["casual","parisian","street"],main:"T1",
+  {id:10,name:"Riviera Moderne",sub:"Chemise jean bijou - Short ray\u00E9 bleu",cat:"casual",styles:["casual","parisian","street"],meta:{matieres:"denim,coton raye",couleurs:"bleu denim,bleu blanc raye,blanc",longueur:"court",saison:"printemps,ete",silhouette:"crop haut,court bas",chaussure:"basket",intensite:"casual estival,denim elevated"},main:"T1",
    pieces:[
     {cat:"Haut",name:"Chemise denim col bijou",brand:"Sandro",price:[195,179,155,145],mi:["T1","T1","T1","T1"],prod:["p_chemise_jean_bijou","p_blouson_denim","p_chemise_blanche","p_chemise_rayee"],lbl:["Chemise jean bijou","Blouson denim","Chemise blanche","Chemise ray\u00E9e"]},
     {cat:"Bas",name:"Short ray\u00E9 bleu",brand:"Sandro",price:[129,110,89,95],mi:["T1","T1","T1","T1"],prod:["p_short_raye","p_jean_delave","p_jean_droit","p_jupe_mini_vichy"],lbl:["Short ray\u00E9 denim","Jean d\u00E9lav\u00E9","Jean droit indigo","Mini jupe vichy"]},
     {cat:"Chaussures",name:"Baskets blanches",brand:"Sandro",price:[89,75,95,110],mi:["T1","T1","T1","T1"],prod:["p_basket_blanc","p_veja","p_basket_marron","p_mocassins"],lbl:["Baskets blanches","Baskets Veja","Baskets marron","Mocassins ivoire"]}
    ]},
-  {id:11,name:"Power Ivoire",sub:"Top dor\u00E9 - Pantalon ivoire",cat:"work",styles:["parisian","tailored","minimal"],main:"T2",
+  {id:11,name:"Power Ivoire",sub:"Top dor\u00E9 - Pantalon ivoire",cat:"work",styles:["parisian","tailored","minimal"],meta:{matieres:"tissu cotele structure,crepe satine",couleurs:"ivoire,dore",longueur:"long",saison:"printemps,ete,automne",silhouette:"crop structure haut,large fluide bas",chaussure:"mule",intensite:"power dressing monochrome,elegance epuree"},main:"T2",
    pieces:[
     {cat:"Haut",name:"Top dor\u00E9 structur\u00E9",brand:"Sandro",price:[165,179,195,155],mi:["T2","T2","T2","T2"],prod:["p_top_dore","p_chemise_blanche","p_polo_marine","p_debardeur_bleu"],lbl:["Top dor\u00E9 structur\u00E9","Chemise blanche","Polo marine","D\u00E9bardeur bleu ciel"]},
     {cat:"Bas",name:"Pantalon large ivoire",brand:"Sandro",price:[185,165,145,175],mi:["T2","T2","T2","T2"],prod:["p_pantalon_ivoire","p_pantalon_clair","p_pantalon_bleu_ciel","p_pantalon_camel"],lbl:["Pantalon ivoire","Pantalon cr\u00E8me rayures","Pantalon bleu ciel","Pantalon camel"]},
     {cat:"Chaussures",name:"Mules dor\u00E9es",brand:"Sandro",price:[145,125,135,115],mi:["T2","T2","T2","T2"],prod:["p_escarpin_dore","p_heels","p_escarpin_blanc","p_escarpin_argent"],lbl:["Escarpins dor\u00E9s","Sandales compens\u00E9es","Escarpins blancs","Escarpins argent\u00E9s"]}
    ]},
-  {id:12,name:"French Gingham",sub:"Top vichy - Jupe vichy",cat:"casual",styles:["casual","boheme","casual"],main:"T3",
+  {id:12,name:"French Gingham",sub:"Top vichy - Jupe vichy",cat:"casual",styles:["casual","boheme","casual"],meta:{matieres:"coton vichy",couleurs:"bleu,blanc",longueur:"tres court mini",saison:"ete",silhouette:"crop court haut,evasee bas",chaussure:"sandale compensee",intensite:"total look estival,coordonne audacieux,vacances"},main:"T3",
    pieces:[
     {cat:"Haut",name:"Top bralette vichy",brand:"Sandro",price:[89,75,95,110],mi:["T3","T3","T3","T3"],prod:["p_top_vichy","p_debardeur_jaune","p_debardeur_bleu","p_top_sequin_bleu"],lbl:["Bralette vichy bleu","D\u00E9bardeur jaune","D\u00E9bardeur bleu ciel","Top s\u00E9quin\u00E9 bleu"]},
     {cat:"Bas",name:"Mini jupe vichy",brand:"Sandro",price:[110,89,95,120],mi:["T3","T3","T3","T3"],prod:["p_jupe_mini_vichy","p_jupe_mini_noire","p_short_raye","p_jupe_beige"],lbl:["Mini jupe vichy","Mini jupe noire strass","Short ray\u00E9 denim","Jupe pliss\u00E9e beige"]},
     {cat:"Chaussures",name:"Sandales compens\u00E9es",brand:"Sandro",price:[125,145,115,89],mi:["T3","T3","T3","T3"],prod:["p_heels","p_escarpin_blanc","p_escarpin_dore","p_basket_blanc"],lbl:["Sandales compens\u00E9es","Escarpins blancs","Escarpins dor\u00E9s","Baskets blanches"]}
    ]},
-  {id:13,name:"Western Edit",sub:"Blouson western - Jean blanc brod\u00E9",cat:"casual",styles:["street","parisian","avantgarde"],main:"T4",
+  {id:13,name:"Western Edit",sub:"Blouson western - Jean blanc brod\u00E9",cat:"casual",styles:["street","parisian","casual"],meta:{matieres:"denim,denim brode",couleurs:"bleu denim,blanc,noir",longueur:"long",saison:"printemps,automne",silhouette:"droit haut,large bas",chaussure:"mocassin",intensite:"casual statement,western luxe,sortie branchee"},main:"T4",
    pieces:[
     {cat:"Haut",name:"Blouson denim western",brand:"Sandro",price:[225,195,215,175],mi:["T4","T4","T4","T4"],prod:["p_blouson_western","p_blouson_denim","p_blazer_noir","p_sweat_denim"],lbl:["Blouson western denim","Blouson denim classique","Blazer noir","Sweat maille denim"]},
     {cat:"Bas",name:"Jean blanc brod\u00E9 floral",brand:"Sandro",price:[175,155,145,165],mi:["T4","T4","T4","T4"],prod:["p_jean_blanc_brode","p_jean_droit","p_jean_delave","p_pantalon_ivoire"],lbl:["Jean blanc brod\u00E9","Jean droit indigo","Jean d\u00E9lav\u00E9","Pantalon ivoire"]},
     {cat:"Chaussures",name:"Mocassins noirs",brand:"Sandro",price:[115,95,89,125],mi:["T4","T4","T4","T4"],prod:["p_mocassins","p_basket_marron","p_basket_blanc","p_veja"],lbl:["Mocassins noirs","Baskets marron","Baskets blanches","Baskets Veja"]}
    ]},
-  {id:14,name:"Lace \u0026 Power",sub:"Blouse dentelle ivoire - Jupe longue noire",cat:"evening",styles:["parisian","romantic","avantgarde"],main:"T5",
+  {id:14,name:"Lace \u0026 Power",sub:"Blouse dentelle ivoire - Jupe longue noire",cat:"evening",styles:["parisian","romantic","avantgarde"],meta:{matieres:"dentelle florale,jersey semi-transparent",couleurs:"ivoire,noir",longueur:"maxi",saison:"printemps,ete,automne",silhouette:"fluide evasee haut,droite bas",chaussure:"sandale compensee",intensite:"soiree romantique,diner elegant,vernissage"},main:"T5",
    pieces:[
     {cat:"Haut",name:"Blouse dentelle ivoire",brand:"Sandro",price:[195,179,165,185],mi:["T5","T5","T5","T5"],prod:["p_chemise_dentelle","p_top_court_noir","p_veste_volantee","p_cardigan_bleu"],lbl:["Blouse dentelle ivoire","Top dentelle noire","Veste peplum noire","Cardigan bleu"]},
     {cat:"Bas",name:"Jupe longue noire",brand:"Sandro",price:[165,145,155,175],mi:["T5","T5","T5","T5"],prod:["p_jupe_longue_noire","p_jupe_noire","p_jupe_longue_blanche","p_pantalon_clair"],lbl:["Jupe longue noire","Jupe noire volants","Jupe longue blanche","Pantalon cr\u00E8me"]},
     {cat:"Chaussures",name:"Sandales compens\u00E9es",brand:"Sandro",price:[125,145,135,115],mi:["T5","T5","T5","T5"],prod:["p_heels","p_escarpin_dore","p_escarpin_blanc","p_escarpin_argent"],lbl:["Sandales compens\u00E9es","Escarpins dor\u00E9s","Escarpins blancs","Escarpins argent\u00E9s"]}
    ]},
-  {id:15,name:"Cobalt Statement",sub:"Chemise brod\u00E9e bleue - Jean indigo",cat:"casual",styles:["avantgarde","parisian","street"],main:"T6",
+  {id:15,name:"Cobalt Statement",sub:"Chemise brod\u00E9e bleue - Jean indigo",cat:"casual",styles:["parisian","street","casual"],meta:{matieres:"coton brode,denim",couleurs:"bleu cobalt,bleu indigo,rouge",longueur:"long",saison:"printemps,ete,automne",silhouette:"crop structure haut,large bas",chaussure:"basket",intensite:"statement colore,sortie culturelle,vernissage"},main:"T6",
    pieces:[
     {cat:"Haut",name:"Chemise brod\u00E9e cobalt",brand:"Sandro",price:[185,155,179,165],mi:["T6","T6","T6","T6"],prod:["p_chemise_bleu_brode","p_chemise_blanche","p_polo_vert","p_debardeur_bleu"],lbl:["Chemise brod\u00E9e cobalt","Chemise blanche","Polo vert \u00E9meraude","D\u00E9bardeur bleu ciel"]},
     {cat:"Bas",name:"Jean large indigo",brand:"Sandro",price:[155,145,165,135],mi:["T6","T6","T6","T6"],prod:["p_jean_droit","p_jean_delave","p_jean_noir","p_pantalon_marine"],lbl:["Jean large indigo","Jean d\u00E9lav\u00E9","Jean noir","Pantalon tailleur"]},
     {cat:"Chaussures",name:"Baskets rouges",brand:"Sandro",price:[120,89,95,75],mi:["T6","T6","T6","T6"],prod:["p_basket_rouge","p_basket_blanc","p_basket_marron","p_veja"],lbl:["Baskets rouges","Baskets blanches","Baskets marron","Baskets Veja"]}
    ]},
-  {id:16,name:"Garden Party",sub:"Blouse lin smock\u00E9e - Pantalon fleuri",cat:"casual",styles:["boheme","romantic","casual"],main:"T7",
+  {id:16,name:"Garden Party",sub:"Blouse lin smock\u00E9e - Pantalon fleuri",cat:"casual",styles:["boheme","romantic","casual"],meta:{matieres:"lin,soie fleurie",couleurs:"blanc,creme,rose rouge fleuri",longueur:"long",saison:"printemps,ete",silhouette:"fluide bouffante haut,large bas",chaussure:"escarpin",intensite:"romantique champetre,mariage invitee,dejeuner terrasse"},main:"T7",
    pieces:[
     {cat:"Haut",name:"Blouse lin smock\u00E9e",brand:"Sandro",price:[155,165,145,175],mi:["T7","T7","T7","T7"],prod:["p_blouse_lin","p_chemise_dentelle","p_chemise_beige","p_chemise_blanche"],lbl:["Blouse lin smock\u00E9e","Blouse dentelle","Chemise beige crop","Chemise blanche"]},
     {cat:"Bas",name:"Pantalon fleuri cr\u00E8me",brand:"Sandro",price:[145,165,135,155],mi:["T7","T7","T7","T7"],prod:["p_pantalon_floral","p_jupe_longue_blanche","p_jupe_beige","p_pantalon_ivoire"],lbl:["Pantalon fleuri cr\u00E8me","Jupe longue blanche","Jupe beige pliss\u00E9e","Pantalon ivoire"]},
     {cat:"Chaussures",name:"Escarpins blancs",brand:"Sandro",price:[135,125,145,115],mi:["T7","T7","T7","T7"],prod:["p_escarpin_blanc","p_heels","p_escarpin_dore","p_basket_blanc"],lbl:["Escarpins blancs","Sandales compens\u00E9es","Escarpins dor\u00E9s","Baskets blanches"]}
    ]},
-  {id:17,name:"Sporty Noir Edit",sub:"Veste peplum noire - Mini jupe strass",cat:"evening",styles:["avantgarde","street","avantgarde"],main:"T8",
+  {id:17,name:"Sporty Noir Edit",sub:"Veste peplum noire - Mini jupe strass",cat:"evening",styles:["parisian","street","romantic"],meta:{matieres:"neoprene structure,tissu strass",couleurs:"noir,blanc",longueur:"tres court mini",saison:"toutes saisons",silhouette:"structuree evasee haut,tres court bas",chaussure:"basket",intensite:"soiree decontractee,concert,club"},main:"T8",
    pieces:[
     {cat:"Haut",name:"Veste peplum noire",brand:"Sandro",price:[245,195,225,215],mi:["T8","T8","T8","T8"],prod:["p_veste_volantee","p_top_court_noir","p_blazer_noir","p_sweat_denim"],lbl:["Veste peplum noire","Top dentelle noire","Blazer noir","Sweat maille denim"]},
     {cat:"Bas",name:"Mini jupe strass noire",brand:"Sandro",price:[145,165,135,155],mi:["T8","T8","T8","T8"],prod:["p_jupe_mini_noire","p_jupe_longue_noire","p_short_marine_strass","p_jupe_noire"],lbl:["Mini jupe strass","Jupe longue noire","Short marine strass","Jupe volants noire"]},
     {cat:"Chaussures",name:"Baskets blanches",brand:"Sandro",price:[89,95,75,110],mi:["T8","T8","T8","T8"],prod:["p_basket_blanc","p_basket_marron","p_veja","p_mocassins"],lbl:["Baskets blanches","Baskets marron","Baskets Veja","Mocassins ivoire"]}
    ]},
-  {id:18,name:"Sunset Paisley",sub:"Robe longue bandana caramel",cat:"evening",styles:["boheme","casual","romantic"],main:"T9",
+  {id:18,name:"Sunset Paisley",sub:"Robe longue bandana caramel",cat:"evening",styles:["boheme","casual","romantic"],meta:{matieres:"viscose fluide,imprime paisley",couleurs:"caramel,blanc,noir",longueur:"maxi",saison:"printemps,ete",silhouette:"fluide taille marquee,jupe ample",chaussure:"sandale compensee",intensite:"diner romantique,soiree estivale,vacances chic"},main:"T9",
    pieces:[
     {cat:"Robe",name:"Robe longue paisley caramel",brand:"Sandro",price:[265,275,245,295],mi:["T9","T9","T9","T9"],prod:["p_robe_paisley_marron","p_robe_paisley_bleue","p_jupe_longue_noire","p_jupe_longue_blanche"],lbl:["Robe paisley caramel","Robe paisley bleue","Jupe longue noire","Jupe longue blanche"]},
     {cat:"Chaussures",name:"Sandales compens\u00E9es",brand:"Sandro",price:[125,145,135,115],mi:["T9","T9","T9","T9"],prod:["p_heels","p_escarpin_dore","p_escarpin_blanc","p_basket_blanc"],lbl:["Sandales compens\u00E9es","Escarpins dor\u00E9s","Escarpins blancs","Baskets blanches"]}
    ]},
-  {id:19,name:"Blue Mood",sub:"Cardigan bleu - Pantalon bleu ciel",cat:"work",styles:["parisian","minimal","casual"],main:"T10",
+  {id:19,name:"Blue Mood",sub:"Cardigan bleu - Pantalon bleu ciel",cat:"work",styles:["parisian","minimal","casual"],meta:{matieres:"maille tricot,tissu raye structure",couleurs:"bleu ciel,blanc,argente",longueur:"long",saison:"printemps,automne",silhouette:"ajuste haut,large bas",chaussure:"escarpin",intensite:"bureau creatif,dejeuner chic,total look bleu,informel serieux creatif"},main:"T10",
    pieces:[
     {cat:"Haut",name:"Cardigan tricot bleu",brand:"Sandro",price:[155,145,165,135],mi:["T10","T10","T10","T10"],prod:["p_cardigan_bleu","p_polo_marine","p_debardeur_bleu","p_chemise_blanche"],lbl:["Cardigan tricot bleu","Polo marine","D\u00E9bardeur bleu ciel","Chemise blanche"]},
     {cat:"Bas",name:"Pantalon bleu ciel rayures",brand:"Sandro",price:[165,175,145,185],mi:["T10","T10","T10","T10"],prod:["p_pantalon_bleu_ciel","p_pantalon_clair","p_pantalon_ivoire","p_jean_droit"],lbl:["Pantalon bleu ciel","Pantalon cr\u00E8me rayures","Pantalon ivoire","Jean large indigo"]},
     {cat:"Chaussures",name:"Escarpins argent\u00E9s",brand:"Sandro",price:[135,125,145,115],mi:["T10","T10","T10","T10"],prod:["p_escarpin_argent","p_escarpin_blanc","p_heels","p_escarpin_dore"],lbl:["Escarpins argent\u00E9s","Escarpins blancs","Sandales compens\u00E9es","Escarpins dor\u00E9s"]}
    ]},
-  {id:20,name:"Denim Romance",sub:"Blouson denim - Robe paisley bleue",cat:"casual",styles:["parisian","casual","street"],main:"T11",
+  {id:20,name:"Denim Romance",sub:"Blouson denim - Robe paisley bleue",cat:"casual",styles:["parisian","casual","street"],meta:{matieres:"denim,polyester plisse imprime",couleurs:"bleu denim,bleu cobalt,blanc,marron",longueur:"maxi",saison:"printemps,ete,automne",silhouette:"oversize haut,fluide plissee bas",chaussure:"basket",intensite:"elegance decontractee,mariage invitee,weekend style,chic elegant decontracte classe"},main:"T11",
    pieces:[
     {cat:"Haut",name:"Blouson denim 4 poches",brand:"Sandro",price:[215,225,195,175],mi:["T11","T11","T11","T11"],prod:["p_blouson_denim","p_blouson_western","p_blouson_satin","p_sweat_denim"],lbl:["Blouson denim classique","Blouson western denim","Blouson satin marine","Sweat maille denim"]},
     {cat:"Bas",name:"Robe paisley bleue",brand:"Sandro",price:[275,265,245,295],mi:["T11","T11","T11","T11"],prod:["p_robe_paisley_bleue","p_robe_paisley_marron","p_jupe_longue_noire","p_jupe_longue_blanche"],lbl:["Robe paisley bleue","Robe paisley caramel","Jupe longue noire","Jupe longue blanche"]},
     {cat:"Chaussures",name:"Baskets marron",brand:"Sandro",price:[89,75,95,110],mi:["T11","T11","T11","T11"],prod:["p_basket_marron","p_basket_blanc","p_veja","p_mocassins"],lbl:["Baskets marron","Baskets blanches","Baskets Veja","Mocassins ivoire"]}
    ]},
-  {id:21,name:"Luxury Track",sub:"Blouson satin marine - Jean d\u00E9lav\u00E9",cat:"casual",styles:["street","street","casual"],main:"T12",
+  {id:21,name:"Luxury Track",sub:"Blouson satin marine - Jean d\u00E9lav\u00E9",cat:"casual",styles:["street","street","casual"],meta:{matieres:"satin technique,denim delave",couleurs:"marine,bleu clair,blanc",longueur:"long",saison:"printemps,automne",silhouette:"ajuste sportif haut,large bas",chaussure:"basket",intensite:"sporty luxe,aeroport,weekend urbain"},main:"T12",
    pieces:[
     {cat:"Haut",name:"Blouson satin sport",brand:"Sandro",price:[195,215,175,225],mi:["T12","T12","T12","T12"],prod:["p_blouson_satin","p_sweat_denim","p_blouson_denim","p_polo_marine"],lbl:["Blouson satin marine","Sweat maille denim","Blouson denim","Polo marine"]},
     {cat:"Bas",name:"Jean large d\u00E9lav\u00E9",brand:"Sandro",price:[155,165,145,135],mi:["T12","T12","T12","T12"],prod:["p_jean_delave","p_jean_droit","p_jean_noir","p_pantalon_cargo"],lbl:["Jean d\u00E9lav\u00E9","Jean droit indigo","Jean noir","Pantalon cargo"]},
     {cat:"Chaussures",name:"Baskets blanches",brand:"Sandro",price:[89,75,95,110],mi:["T12","T12","T12","T12"],prod:["p_basket_blanc","p_basket_marron","p_veja","p_mocassins"],lbl:["Baskets blanches","Baskets marron","Baskets Veja","Mocassins ivoire"]}
    ]},
-  {id:22,name:"Bureau Parisien",sub:"Chemise blanche - Pantalon tailleur marine",cat:"work",styles:["parisian","tailored","minimal"],main:"T13",
+  {id:22,name:"Bureau Parisien",sub:"Chemise blanche - Pantalon tailleur marine",cat:"work",styles:["parisian","tailored","minimal"],meta:{matieres:"popeline coton,laine legere",couleurs:"blanc,marine,ivoire",longueur:"long",saison:"toutes saisons",silhouette:"crop droit haut,droit structure bas",chaussure:"mocassin",intensite:"bureau classique,presentation,reunion formelle"},main:"T13",
    pieces:[
     {cat:"Haut",name:"Chemise blanche Sandro",brand:"Sandro",price:[145,155,135,165],mi:["T13","T13","T13","T13"],prod:["p_chemise_blanche","p_polo_marine","p_top_dore","p_debardeur_bleu"],lbl:["Chemise blanche Sandro","Polo marine","Top dor\u00E9","D\u00E9bardeur bleu ciel"]},
     {cat:"Bas",name:"Pantalon tailleur marine",brand:"Sandro",price:[155,175,165,145],mi:["T13","T13","T13","T13"],prod:["p_pantalon_marine","p_pantalon_bleu_ciel","p_pantalon_clair","p_jean_droit"],lbl:["Pantalon tailleur marine","Pantalon bleu ciel","Pantalon cr\u00E8me","Jean large indigo"]},
     {cat:"Chaussures",name:"Mocassins ivoire",brand:"Sandro",price:[115,89,95,125],mi:["T13","T13","T13","T13"],prod:["p_mocassins","p_basket_blanc","p_escarpin_blanc","p_heels"],lbl:["Mocassins ivoire","Baskets blanches","Escarpins blancs","Sandales compens\u00E9es"]}
    ]},
-  {id:23,name:"Casual Emeraude",sub:"Polo vert \u00E9meraude - Jean d\u00E9lav\u00E9",cat:"casual",styles:["casual","parisian","street"],main:"T14",
+  {id:23,name:"Casual Emeraude",sub:"Polo vert \u00E9meraude - Jean d\u00E9lav\u00E9",cat:"casual",styles:["casual","parisian","street"],meta:{matieres:"maille polo structure,denim delave",couleurs:"vert emeraude,bleu clair,marron",longueur:"long",saison:"printemps,ete,automne",silhouette:"crop structure haut,large bas",chaussure:"basket",intensite:"casual couleur statement,brunch,weekend branche"},main:"T14",
    pieces:[
     {cat:"Haut",name:"Polo crop vert \u00E9meraude",brand:"Sandro",price:[145,135,155,165],mi:["T14","T14","T14","T14"],prod:["p_polo_vert","p_polo_marine","p_debardeur_jaune","p_cardigan_bleu"],lbl:["Polo vert \u00E9meraude","Polo marine","D\u00E9bardeur jaune","Cardigan bleu"]},
     {cat:"Bas",name:"Jean large d\u00E9lav\u00E9",brand:"Sandro",price:[155,165,145,135],mi:["T14","T14","T14","T14"],prod:["p_jean_delave","p_jean_droit","p_jean_blanc_brode","p_pantalon_floral"],lbl:["Jean d\u00E9lav\u00E9","Jean droit indigo","Jean blanc brod\u00E9","Pantalon fleuri"]},
     {cat:"Chaussures",name:"Baskets marron",brand:"Sandro",price:[89,95,75,110],mi:["T14","T14","T14","T14"],prod:["p_basket_marron","p_basket_blanc","p_veja","p_mocassins"],lbl:["Baskets marron","Baskets blanches","Baskets Veja","Mocassins ivoire"]}
    ]},
-  {id:24,name:"Soiree Bleue",sub:"Top s\u00E9quin\u00E9 bleu - Jupe longue noire",cat:"evening",styles:["avantgarde","avantgarde","parisian"],main:"T15",
+  {id:24,name:"Soiree Bleue",sub:"Top s\u00E9quin\u00E9 bleu - Jupe longue noire",cat:"evening",styles:["avantgarde","avantgarde","parisian"],meta:{matieres:"sequins,jersey semi-transparent",couleurs:"bleu electrique,noir,argente",longueur:"maxi",saison:"toutes saisons",silhouette:"crop brillant haut,fluide bas",chaussure:"escarpin plat argente",intensite:"soiree dansante,cocktail,evenement festif"},main:"T15",
    pieces:[
     {cat:"Haut",name:"Top s\u00E9quin\u00E9 bleu",brand:"Sandro",price:[185,165,195,215],mi:["T15","T15","T15","T15"],prod:["p_top_sequin_bleu","p_top_court_noir","p_debardeur_bleu","p_veste_volantee"],lbl:["Top s\u00E9quin\u00E9 bleu","Top dentelle noire","D\u00E9bardeur bleu ciel","Veste peplum noire"]},
     {cat:"Bas",name:"Jupe longue noire",brand:"Sandro",price:[165,155,175,145],mi:["T15","T15","T15","T15"],prod:["p_jupe_longue_noire","p_jupe_noire","p_jupe_mini_noire","p_pantalon_marine"],lbl:["Jupe longue noire","Jupe volants noire","Mini jupe strass","Pantalon tailleur"]},
     {cat:"Chaussures",name:"Escarpins argent\u00E9s",brand:"Sandro",price:[135,145,125,115],mi:["T15","T15","T15","T15"],prod:["p_escarpin_argent","p_escarpin_dore","p_heels","p_escarpin_blanc"],lbl:["Escarpins argent\u00E9s","Escarpins dor\u00E9s","Sandales compens\u00E9es","Escarpins blancs"]}
    ]},
-  {id:25,name:"Polo Marine",sub:"Polo marine - Pantalon ivoire",cat:"work",styles:["parisian","minimal","tailored"],main:"T16",
+  {id:25,name:"Polo Marine",sub:"Polo marine - Pantalon ivoire",cat:"work",styles:["parisian","minimal","tailored"],meta:{matieres:"maille polo structure,crepe satine",couleurs:"marine,ivoire,dore",longueur:"long",saison:"printemps,ete,automne",silhouette:"crop structure haut,large fluide bas",chaussure:"mule",intensite:"chic decontracte,bureau creatif,dejeuner elegant,classe"},main:"T16",
    pieces:[
     {cat:"Haut",name:"Polo crop marine",brand:"Sandro",price:[145,135,155,165],mi:["T16","T16","T16","T16"],prod:["p_polo_marine","p_polo_vert","p_cardigan_bleu","p_chemise_blanche"],lbl:["Polo marine","Polo vert \u00E9meraude","Cardigan bleu","Chemise blanche"]},
     {cat:"Bas",name:"Pantalon large ivoire",brand:"Sandro",price:[185,165,175,145],mi:["T16","T16","T16","T16"],prod:["p_pantalon_ivoire","p_pantalon_clair","p_pantalon_bleu_ciel","p_pantalon_camel"],lbl:["Pantalon ivoire","Pantalon cr\u00E8me rayures","Pantalon bleu ciel","Pantalon camel"]},
     {cat:"Chaussures",name:"Mules dor\u00E9es",brand:"Sandro",price:[145,125,135,115],mi:["T16","T16","T16","T16"],prod:["p_escarpin_dore","p_heels","p_escarpin_blanc","p_escarpin_argent"],lbl:["Escarpins dor\u00E9s","Sandales compens\u00E9es","Escarpins blancs","Escarpins argent\u00E9s"]}
    ]},
-  {id:26,name:"Street Denim",sub:"Sweat cropped - Short marine strass",cat:"casual",styles:["street","street","casual"],main:"T17",
+  {id:26,name:"Street Denim",sub:"Sweat cropped - Short marine strass",cat:"casual",styles:["street","street","casual"],meta:{matieres:"molleton coton,tissu technique strass",couleurs:"marine,bleu denim,blanc",longueur:"tres court",saison:"printemps,ete,automne",silhouette:"oversize haut,tres court bas",chaussure:"basket",intensite:"concert,soiree decontractee,sortie nocturne,confortable classe"},main:"T17",
    pieces:[
     {cat:"Haut",name:"Sweat cropped denim",brand:"Sandro",price:[165,145,175,195],mi:["T17","T17","T17","T17"],prod:["p_sweat_denim","p_blouson_satin","p_polo_marine","p_blouson_denim"],lbl:["Sweat cropped denim","Blouson satin marine","Polo marine","Blouson denim"]},
     {cat:"Bas",name:"Short marine strass",brand:"Sandro",price:[145,135,129,155],mi:["T17","T17","T17","T17"],prod:["p_short_marine_strass","p_short_raye","p_jupe_mini_noire","p_jean_delave"],lbl:["Short marine strass","Short ray\u00E9 denim","Mini jupe strass","Jean d\u00E9lav\u00E9"]},
     {cat:"Chaussures",name:"Baskets blanches",brand:"Sandro",price:[89,75,95,110],mi:["T17","T17","T17","T17"],prod:["p_basket_blanc","p_basket_marron","p_veja","p_mocassins"],lbl:["Baskets blanches","Baskets marron","Baskets Veja","Mocassins ivoire"]}
    ]},
-  {id:27,name:"Romantique Travail",sub:"Top dentelle noire - Pantalon cr\u00E8me",cat:"work",styles:["parisian","romantic","tailored"],main:"T18",
+  {id:27,name:"Romantique Travail",sub:"Top dentelle noire - Pantalon cr\u00E8me",cat:"work",styles:["parisian","romantic","tailored"],meta:{matieres:"dentelle florale,tissu raye structure",couleurs:"noir,creme,blanc",longueur:"long",saison:"printemps,ete,automne",silhouette:"crop dentelle haut,large structure bas",chaussure:"escarpin",intensite:"bureau romantique,dejeuner affaires,presentation creative"},main:"T18",
    pieces:[
     {cat:"Haut",name:"Top dentelle noire",brand:"Sandro",price:[175,165,185,195],mi:["T18","T18","T18","T18"],prod:["p_top_court_noir","p_chemise_dentelle","p_veste_volantee","p_blazer_noir"],lbl:["Top dentelle noire","Blouse dentelle ivoire","Veste peplum noire","Blazer noir"]},
     {cat:"Bas",name:"Pantalon cr\u00E8me rayures tennis",brand:"Sandro",price:[165,185,175,145],mi:["T18","T18","T18","T18"],prod:["p_pantalon_clair","p_pantalon_ivoire","p_pantalon_bleu_ciel","p_jean_blanc_brode"],lbl:["Pantalon cr\u00E8me rayures","Pantalon ivoire","Pantalon bleu ciel","Jean blanc brod\u00E9"]},
     {cat:"Chaussures",name:"Escarpins blancs",brand:"Sandro",price:[125,135,145,115],mi:["T18","T18","T18","T18"],prod:["p_escarpin_blanc","p_heels","p_escarpin_dore","p_escarpin_argent"],lbl:["Escarpins blancs","Sandales compens\u00E9es","Escarpins dor\u00E9s","Escarpins argent\u00E9s"]}
    ]},
-  {id:28,name:"Debardeur Club",sub:"D\u00E9bardeur bleu ciel - Jean blanc brod\u00E9",cat:"casual",styles:["casual","parisian","boheme"],main:"T19",
+  {id:28,name:"Debardeur Club",sub:"D\u00E9bardeur bleu ciel - Jean blanc brod\u00E9",cat:"casual",styles:["casual","parisian","boheme"],meta:{matieres:"jersey cotele,denim brode",couleurs:"bleu ciel,blanc,marron",longueur:"long",saison:"printemps,ete",silhouette:"ajuste haut,large bas",chaussure:"sandale compensee",intensite:"estival chic,terrasse,soiree decontractee"},main:"T19",
    pieces:[
     {cat:"Haut",name:"D\u00E9bardeur bleu ciel",brand:"Sandro",price:[89,95,75,110],mi:["T19","T19","T19","T19"],prod:["p_debardeur_bleu","p_debardeur_jaune","p_top_vichy","p_cardigan_bleu"],lbl:["D\u00E9bardeur bleu ciel","D\u00E9bardeur jaune","Bralette vichy","Cardigan bleu"]},
     {cat:"Bas",name:"Jean blanc brod\u00E9 floral",brand:"Sandro",price:[175,155,165,145],mi:["T19","T19","T19","T19"],prod:["p_jean_blanc_brode","p_jean_delave","p_jean_droit","p_pantalon_floral"],lbl:["Jean blanc brod\u00E9","Jean d\u00E9lav\u00E9","Jean droit indigo","Pantalon fleuri"]},
     {cat:"Chaussures",name:"Sandales compens\u00E9es",brand:"Sandro",price:[125,145,135,115],mi:["T19","T19","T19","T19"],prod:["p_heels","p_escarpin_blanc","p_escarpin_dore","p_basket_blanc"],lbl:["Sandales compens\u00E9es","Escarpins blancs","Escarpins dor\u00E9s","Baskets blanches"]}
    ]},
-  {id:29,name:"Linen Power",sub:"Blouse lin smock\u00E9e - Jean large indigo",cat:"casual",styles:["parisian","minimal","casual"],main:"T20",
+  {id:29,name:"Linen Power",sub:"Blouse lin smock\u00E9e - Jean large indigo",cat:"casual",styles:["parisian","minimal","casual"],meta:{matieres:"lin,denim",couleurs:"blanc,bleu indigo,noir",longueur:"long",saison:"printemps,ete",silhouette:"fluide bouffante haut,large bas",chaussure:"mocassin",intensite:"casual chic parisien,quotidien elegant,dejeuner,classe au travail"},main:"T20",
    pieces:[
     {cat:"Haut",name:"Blouse lin smock\u00E9e",brand:"Sandro",price:[155,145,165,135],mi:["T20","T20","T20","T20"],prod:["p_blouse_lin","p_chemise_blanche","p_chemise_beige","p_chemise_rayee"],lbl:["Blouse lin smock\u00E9e","Chemise blanche Sandro","Chemise beige crop","Chemise ray\u00E9e"]},
     {cat:"Bas",name:"Jean large indigo",brand:"Sandro",price:[155,145,165,135],mi:["T20","T20","T20","T20"],prod:["p_jean_droit","p_jean_delave","p_jean_noir","p_pantalon_marine"],lbl:["Jean large indigo","Jean d\u00E9lav\u00E9","Jean noir","Pantalon tailleur"]},
@@ -609,6 +609,7 @@ function score(o){
   if(!cat||o.cat===cat)sc+=10;
   S.styles.forEach(function(s){if(o.styles.indexOf(s)>=0)sc+=3;});
   if(o.id===5)sc+=(S.morph!=="tall"?100:2);
+  sc += Math.random() * 0.9;
   return sc;
 }
 
@@ -757,7 +758,14 @@ function renderR(){
   renderPieces();
   var og=document.getElementById("og");
   og.innerHTML="";
-  r.slice(1,5).forEach(function(item){
+  // Mix top ranked with diversity picks
+var ogList = r.slice(1,9);
+// Ensure variety: if top picks are all same cat, inject different cat
+var topCat = r[0].cat;
+var diffCat = ogList.filter(function(o){return o.cat!==topCat;});
+var sameCat = ogList.filter(function(o){return o.cat===topCat;});
+var diverseList = sameCat.slice(0,2).concat(diffCat.slice(0,2));
+diverseList.slice(0,4).forEach(function(item){
     var o=item;
     var div=document.createElement("div");div.className="ot";
     var img=document.createElement("img");img.src=I[o.main]||"";img.alt="";img.onerror=function(){this.style.background="var(--cb)";this.style.opacity="0.3";};
@@ -787,16 +795,21 @@ var claudeExplanation = "";
 
 function buildCatalogue(){
   var lines = outfits.map(function(o){
-    // Build detailed piece descriptions
-    var pieces = o.pieces.map(function(p){
-      return p.cat+":"+p.name;
-    }).join(" / ");
-    // Detect shoe type from pieces
-    var shoes = "";
-    o.pieces.forEach(function(p){
-      if(p.cat==="Chaussures") shoes = p.name;
-    });
-    return o.id+"|"+o.name+"|"+o.sub+"|"+o.cat+"|"+o.styles.join(",")+"|"+pieces+"|chaussures:"+shoes;
+    var m = o.meta || {};
+    return [
+      o.id,
+      o.name,
+      o.sub,
+      o.cat,
+      o.styles.join(","),
+      "matieres:"+(m.matieres||""),
+      "couleurs:"+(m.couleurs||""),
+      "longueur:"+(m.longueur||""),
+      "saison:"+(m.saison||""),
+      "silhouette:"+(m.silhouette||""),
+      "chaussure:"+(m.chaussure||""),
+      "intensite:"+(m.intensite||"")
+    ].join("|");
   });
   return lines.join("\n");
 }
@@ -1032,10 +1045,25 @@ function claudeSearch(query){
   if(q.indexOf("vert")>=0) extraRules += "COULEUR: Privilegier les tenues avec pieces vertes.\n";
   if(q.indexOf("fleur")>=0||q.indexOf("floral")>=0||q.indexOf("imprime")>=0) extraRules += "MOTIF: Privilegier les tenues avec imprim\u00E9s floraux ou graphiques.\n";
 
+  // Read current UI parameters
+  var occLabels = {all:"toutes occasions",casual:"quotidien / week-end",work:"travail / chic",evening:"soiree / formel"};
+  var morphLabels = {slim:"elancee",curvy:"courbes",petite:"petite",athletic:"athletique",tall:"grande"};
+  var styleLabels = {minimal:"Minimaliste",parisian:"Parisien chic",casual:"Casual luxe",street:"Streetwear",boheme:"Boheme",tailored:"Tailored",romantic:"Romantique",avantgarde:"Avant-garde"};
+  var budgetVal = document.getElementById("budget") ? document.getElementById("budget").value : "300";
+  var occLabel = occLabels[S.occ] || "toutes occasions";
+  var morphLabel = morphLabels[S.morph] || "grande";
+  var stylesLabel = S.styles.map(function(s){return styleLabels[s]||s;}).join(", ") || "aucun";
+
+  var userContext = "PROFIL UTILISATRICE:\n"+
+    "- Occasion preferee: "+occLabel+"\n"+
+    "- Styles aimes: "+stylesLabel+"\n"+
+    "- Morphologie: "+morphLabel+"\n"+
+    "- Budget maximum: "+budgetVal+"EUR\n\n";
+
   var prompt = "Tu es CLAIA, personal shopper expert pour Sandro Paris.\n"+
-    "REGLE ABSOLUE: La requete de l'utilisatrice (ci-dessous) est LA PRIORITE MAXIMALE et ecrase tous les autres criteres. Si la requete contredit les filtres habituels, suivre la requete.\n"+
+    "REGLE ABSOLUE: La requete (ci-dessous) est LA PRIORITE MAXIMALE. Le profil utilisatrice est un contexte complementaire - utilise-le pour affiner si la requete est ambigue, mais la requete prime toujours.\n"+
     "Ta mission: recommander les tenues les PLUS ADAPTEES a la demande en tenant compte du style ET de la praticite.\n\n"+
-    "DEMANDE: \""+query+"\"\n\n"+
+    userContext+"DEMANDE: \""+query+"\"\n\n"+
     (extraRules ? "REGLES ABSOLUMENT OBLIGATOIRES - A RESPECTER STRICTEMENT:\n"+extraRules+"\n" : "")+
     "PROFIL STYLISTIQUE DE L'UTILISATRICE:\n"+
     "- Elle prefere TOUJOURS la couleur forte sur la base neutre (vert emeraude, cobalt, vichy) plutot que le look neutre safe\n"+
@@ -1052,7 +1080,7 @@ function claudeSearch(query){
     "- Pieces structurees (blazers, vestes peplum)=bureau/presentation uniquement\n"+
     "- Total look coordonne (vichy/vichy, etc)=valorise et recommande\n"+
     "- Couleur forte = toujours privilegier si disponible et coherente avec l'occasion\n\n"+
-    "CATALOGUE (format: id|nom|description|occasion|styles|pieces|chaussures):\n"+
+    "CATALOGUE (format: id|nom|description|occasion|styles|matieres|couleurs|longueur|saison|silhouette|chaussure|intensite):\n"+
     catalogue+"\n\n"+
     "IMPORTANT: Respecte ABSOLUMENT les filtres de pieces (jupe/pantalon/robe etc) - c'est non negociable.\n"+
     "Selectionne les 5 tenues les plus pertinentes. Si une tenue ne contient pas la piece demandee, elle ne doit PAS apparaitre.\n"+
@@ -1200,9 +1228,33 @@ document.getElementById("mg").onclick=function(e){
   var ms=document.getElementById("mstrip");
   if(ms){if(isBold()){ms.classList.remove("hidden");ms.querySelectorAll(".msb").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-m")===S.morph);});}else{ms.classList.add("hidden");}}
 };
+var cinemaToOutfit = {
+  "Diable":1,"Breakfast":1,"bout de souffle":9,"Succession":14,"Saltburn":13,
+  "Emily in Paris":5,"Great Gatsby":24,"Pulp Fiction":17,"Call Me By":13,
+  "Tulum":18,"Gossip Girl":24,"Siobhan":14,"Midsommar":16,
+  "Sex Education":15,"Dieu cr":12,"Clueless":20
+};
 document.getElementById("cin-grid").onclick=function(e){
   var c=e.target.closest(".cc");if(!c)return;
   this.querySelectorAll(".cc").forEach(function(x){x.classList.remove("on");});c.classList.add("on");
+  var filmName = c.querySelector(".cf") ? c.querySelector(".cf").textContent : "";
+  var outfitId = null;
+  Object.keys(cinemaToOutfit).forEach(function(key){
+    if(filmName.indexOf(key)>=0) outfitId = cinemaToOutfit[key];
+  });
+  if(outfitId){
+    var outfit = outfits.find(function(o){return o.id===outfitId;});
+    if(outfit){
+      S.outfitId=outfit.id;S.sel={top:0,bot:0,sho:0};S.lastKey="top";
+      document.getElementById("r-badge").textContent="Inspir\u00E9 de "+filmName;
+      document.getElementById("r-name").textContent=outfit.name;
+      document.getElementById("r-sub").textContent=outfit.sub;
+      setMannImg(mainImg(outfit));
+      var ms=document.getElementById("mstrip");if(ms)ms.classList.add("hidden");
+      renderPieces();
+      showTab("r");
+    }
+  }
 };
 document.getElementById("mstrip").onclick=function(e){
   var b=e.target.closest(".msb");if(!b)return;
