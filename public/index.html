@@ -805,6 +805,69 @@ function claudeSearch(query){
   // Detect context clues from query for extra rules
   var q = query.toLowerCase();
   var extraRules = "";
+
+  // === FILTRES VETEMENTS (non-negotiables) ===
+  if(q.indexOf("jupe")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande une JUPE - proposer UNIQUEMENT tenues avec jupe (mini, longue, plissee). EXCLURE pantalon, jean, short, robe.\n";
+  if(q.indexOf("pantalon")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande un PANTALON - EXCLURE toute tenue avec jupe, short ou robe.\n";
+  if(q.indexOf("robe")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande une ROBE - proposer UNIQUEMENT des robes completes. EXCLURE separates.\n";
+  if(q.indexOf("jean")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande un JEAN - privilegier tenues avec jean specifiquement.\n";
+  if(q.indexOf("short")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande un SHORT - proposer UNIQUEMENT tenues avec short.\n";
+  if(q.indexOf("veste")>=0||q.indexOf("blazer")>=0||q.indexOf("blouson")>=0) extraRules += "FILTRE ABSOLU VETEMENT: demande une VESTE/BLAZER/BLOUSON - proposer UNIQUEMENT tenues avec veste, blazer ou blouson en haut.\n";
+  if(q.indexOf("basket")>=0||q.indexOf("sneaker")>=0) extraRules += "FILTRE ABSOLU CHAUSSURE: demande des BASKETS - EXCLURE escarpins, mules, sandales formelles.\n";
+  if(q.indexOf("escarpin")>=0||q.indexOf("talon")>=0||q.indexOf("heel")>=0) extraRules += "FILTRE ABSOLU CHAUSSURE: demande des ESCARPINS/TALONS - EXCLURE baskets et mocassins.\n";
+  if(q.indexOf("mocassin")>=0||q.indexOf("loafer")>=0) extraRules += "FILTRE ABSOLU CHAUSSURE: demande des MOCASSINS - privilegier tenues avec mocassins.\n";
+
+  // === FILTRES SAISON ===
+  if(q.indexOf("hiver")>=0||q.indexOf("froid")>=0||q.indexOf("frisquet")>=0){
+    extraRules += "SAISON HIVER: Privilegier tenues avec vestes, blousons, cardigans, matieres epaisses. EXCLURE bralettes, shorts, tops courts, robes legeres estivales, lin, vichy. Privilegier les pantalons longs couvrants.\n";
+  }
+  if(q.indexOf("ete")>=0||q.indexOf("chaud")>=0||q.indexOf("chaleur")>=0||q.indexOf("canicule")>=0){
+    extraRules += "SAISON ETE: Privilegier robes legeres, shorts, jupes courtes, debardeurs, lin, vichy, matieres legeres. EXCLURE blousons epais, cardigans lourds, satin chaud.\n";
+  }
+  if(q.indexOf("printemps")>=0||q.indexOf("spring")>=0){
+    extraRules += "SAISON PRINTEMPS: Tenues legeres mais avec une couche (cardigan, veste legere). Couleurs claires, florales. Ni trop leger ni trop couvert.\n";
+  }
+  if(q.indexOf("automne")>=0||q.indexOf("autumn")>=0){
+    extraRules += "SAISON AUTOMNE: Privilegier blousons, vestes, layers. Couleurs chaudes (camel, marron, navy). Eviter les tenues trop estivales (shorts, bralettes).\n";
+  }
+
+  // === FILTRES CONTEXTE ===
+  if(q.indexOf("travail")>=0||q.indexOf("bureau")>=0||q.indexOf("reunio")>=0||q.indexOf("profes")>=0){
+    extraRules += "CONTEXTE BUREAU: Tenues structurees, tailored. EXCLURE bralettes, shorts, crop tops tres courts. Chaussures fermees ou mules elegantes.\n";
+  }
+  if(q.indexOf("soir")>=0||q.indexOf("diner")>=0||q.indexOf("gala")>=0||q.indexOf("cocktail")>=0){
+    extraRules += "CONTEXTE SOIREE: Matieres nobles (sequins, dentelle, satin). Privilegier robes longues, jupes longues. EXCLURE baskets, jeans, sweatshirts.\n";
+  }
+  if(q.indexOf("dans")>=0||q.indexOf("club")>=0||q.indexOf("boite")>=0){
+    extraRules += "CONTEXTE DANSE: Privilegier sequins+jupe fluide+escarpins plats stables. EXCLURE sandales compensees hautes instables.\n";
+  }
+  if(q.indexOf("brunch")>=0||q.indexOf("dejeuner")>=0||q.indexOf("midi")>=0){
+    extraRules += "CONTEXTE BRUNCH/DEJEUNER: Casual chic. Jeans, robes decontractees, polos OK. Baskets et mocassins bienvenus. Eviter trop formel.\n";
+  }
+  if(q.indexOf("course")>=0||q.indexOf("shopping")>=0||q.indexOf("quotidien")>=0||q.indexOf("journee")>=0){
+    extraRules += "CONTEXTE QUOTIDIEN: Confort et style. Privilegier jean, pantalon large, baskets ou mocassins. Eviter les tenues trop habillees ou fragiles.\n";
+  }
+  if(q.indexOf("sport")>=0||q.indexOf("marche")>=0||q.indexOf("balade")>=0){
+    extraRules += "CONTEXTE SPORT/BALADE: Confort absolu. Baskets obligatoires. Privilegier pantalons larges, sweat, blouson. EXCLURE jupes courtes, escarpins, mules.\n";
+  }
+  if(q.indexOf("week")>=0||q.indexOf("week-end")>=0||q.indexOf("samedi")>=0||q.indexOf("dimanche")>=0){
+    extraRules += "CONTEXTE WEEK-END: Decontracte mais soigne. Jean, polo, blouson OK. Couleur statement bienvenue.\n";
+  }
+  if(q.indexOf("voyage")>=0||q.indexOf("train")>=0||q.indexOf("avion")>=0){
+    extraRules += "CONTEXTE VOYAGE: Confort + style. Baskets ou mocassins. Pantalons larges, blousons pratiques. Eviter les tenues trop formelles ou fragiles.\n";
+  }
+  if(q.indexOf("concert")>=0||q.indexOf("festival")>=0||q.indexOf("musique")>=0){
+    extraRules += "CONTEXTE CONCERT: Short strass, mini jupe avec sweat/blouson parfait. Baskets obligatoires. Details travailles (strass, broderies) bienvenus.\n";
+  }
+  if(q.indexOf("mariage")>=0||q.indexOf("invite")>=0||q.indexOf("ceremonie")>=0){
+    extraRules += "CONTEXTE MARIAGE INVITEE: Robe longue imprimee OU look blouson+robe decontracte valides. Elegance sans effort. Eviter le trop formel.\n";
+  }
+  if(q.indexOf("romantique")>=0||q.indexOf("date")>=0||q.indexOf("rendez-vous")>=0){
+    extraRules += "CONTEXTE ROMANTIQUE: Privilegier robes fluides, dentelle, florals. Couleurs douces. Eviter streetwear et looks trop masculins.\n";
+  }
+  if(q.indexOf("vernissage")>=0||q.indexOf("galerie")>=0||q.indexOf("expo")>=0||q.indexOf("art")>=0){
+    extraRules += "CONTEXTE ART/VERNISSAGE: Audace et caractere. Couleurs fortes, details uniques (broderies, strass). Le look conventionnel est une erreur ici.\n";
+  }
   if(q.indexOf("dans")>=0||q.indexOf("club")>=0||q.indexOf("fest")>=0){
     extraRules += "DANSE/MOUVEMENT: Privilegier sequins+jupe longue fluide+escarpins plats stables (comme Soiree Bleue). EXCLURE sandales compensees hautes instables. Baskets acceptables si look est assez elabore par ailleurs.\n";
   }
@@ -830,10 +893,70 @@ function claudeSearch(query){
     extraRules += "ROMANTIQUE: Privilegier dentelle, floral, robes fluides, couleurs douces. Eviter streetwear et looks trop masculins.\n";
   }
 
+  // === TENDANCES ET INSPIRATIONS ===
+  if(q.indexOf("annee 70")>=0||q.indexOf("annees 70")>=0||q.indexOf("70s")>=0||q.indexOf("seventies")>=0){
+    extraRules += "INSPIRATION 70s: Privilegier pantalons larges a pattes d'elephant, blousons, imprim\u00E9s floraux, couleurs chaudes (camel, marron, orange). Jean large indigo parfait.\n";
+  }
+  if(q.indexOf("annee 80")>=0||q.indexOf("annees 80")>=0||q.indexOf("80s")>=0||q.indexOf("eighties")>=0){
+    extraRules += "INSPIRATION 80s: Privilegier vestes structurees a epaulettes, couleurs vives, sequins, total looks audacieux. Power dressing.\n";
+  }
+  if(q.indexOf("annee 90")>=0||q.indexOf("annees 90")>=0||q.indexOf("90s")>=0||q.indexOf("nineties")>=0){
+    extraRules += "INSPIRATION 90s: Privilegier slip dress, mini jupes, looks minimalistes, denim sur denim. Palette neutre ou couleurs flashy contrastees.\n";
+  }
+  if(q.indexOf("annee 2000")>=0||q.indexOf("y2k")>=0||q.indexOf("2000s")>=0){
+    extraRules += "INSPIRATION Y2K/2000s: Privilegier mini jupes, tops courts, sequins, looks colores et ludiques. Baskets stylees ou mules.\n";
+  }
+  if(q.indexOf("gatsby")>=0||q.indexOf("annee 20")>=0||q.indexOf("annees 20")>=0||q.indexOf("roaring")>=0){
+    extraRules += "INSPIRATION ANNEES 20/GATSBY: Privilegier sequins, franges, robes longues, matieres brillantes. Elegance maximale et festive.\n";
+  }
+  if(q.indexOf("audrey")>=0||q.indexOf("hepburn")>=0||q.indexOf("breakfast")>=0||q.indexOf("tiffany")>=0){
+    extraRules += "INSPIRATION AUDREY HEPBURN: Minimalisme elegant. Privilegier tenues noires epurees, lignes simples, escarpins. Sophistication sans effort.\n";
+  }
+  if(q.indexOf("brigitte")>=0||q.indexOf("bardot")>=0||q.indexOf("bb")>=0){
+    extraRules += "INSPIRATION BRIGITTE BARDOT: Privilegier vichy, robes estivales, imprim\u00E9s floraux, look Saint-Tropez. Feminite naturelle et decontractee.\n";
+  }
+  if(q.indexOf("succession")>=0||q.indexOf("siobhan")>=0||q.indexOf("old money")>=0){
+    extraRules += "INSPIRATION OLD MONEY/SUCCESSION: Privilegier tailored, pantalons structures, couleurs sobres (navy, camel, ivoire). Luxe discret. EXCLURE tout ce qui est trop flashy ou streetwear.\n";
+  }
+  if(q.indexOf("emily in paris")>=0||q.indexOf("emily")>=0){
+    extraRules += "INSPIRATION EMILY IN PARIS: Couleurs vives, prints audacieux, looks parisiens romanesques. Privilegier les pieces avec details (broderies, sequins, imprim\u00E9s).\n";
+  }
+  if(q.indexOf("saltburn")>=0||q.indexOf("preppy")>=0||q.indexOf("ivy league")>=0){
+    extraRules += "INSPIRATION PREPPY/SALTBURN: Privilegier polos, pantalons tailored, blousons classiques. Palette marine, vert, camel. Elegance britannique.\n";
+  }
+  if(q.indexOf("minimaliste")>=0||q.indexOf("minimal")>=0||q.indexOf("epure")>=0||q.indexOf("the row")>=0){
+    extraRules += "STYLE MINIMALISTE: Privilegier tenues monochromes, coupes simples, sans ornements excessifs. Palette neutre (blanc, noir, beige, marine). Moins = mieux.\n";
+  }
+  if(q.indexOf("boheme")>=0||q.indexOf("boho")>=0||q.indexOf("hippie")>=0){
+    extraRules += "STYLE BOHEME: Privilegier imprim\u00E9s floraux, robes fluides, lin, vichy. Sandales. Palette naturelle et chaude.\n";
+  }
+  if(q.indexOf("streetwear")>=0||q.indexOf("urban")>=0||q.indexOf("hype")>=0){
+    extraRules += "STYLE STREETWEAR: Privilegier sweat, blouson, short strass, baskets. Looks decontractes avec des details inattendus.\n";
+  }
+  if(q.indexOf("parisien")>=0||q.indexOf("french girl")>=0||q.indexOf("french chic")>=0){
+    extraRules += "STYLE FRENCH GIRL: Privilegier chemises, jeans larges, blazers, looks effortless. Couleur statement bienvenue mais pas too much. L'elegance sans effort est la cle.\n";
+  }
+  if(q.indexOf("power dressing")>=0||q.indexOf("femme forte")>=0||q.indexOf("boss")>=0){
+    extraRules += "POWER DRESSING: Privilegier vestes structurees, pantalons tailored, couleurs intenses (noir, navy, cobalt). Tenues qui imposent le respect.\n";
+  }
+  if(q.indexOf("romantique")>=0||q.indexOf("feminin")>=0||q.indexOf("girly")>=0){
+    extraRules += "STYLE ROMANTIQUE/FEMININ: Privilegier dentelle, florals, robes fluides, jupes plissees. Couleurs douces ou pastels.\n";
+  }
+  if(q.indexOf("monochrome")>=0||q.indexOf("total look")>=0||q.indexOf("head to toe")>=0){
+    extraRules += "STYLE MONOCHROME: Privilegier les tenues dont le haut et le bas sont dans la meme palette de couleur. Le matching total est valorise.\n";
+  }
+  // Couleurs sp\u00E9cifiques
+  if(q.indexOf("noir")>=0) extraRules += "COULEUR: Privilegier les tenues avec pieces noires dominantes.\n";
+  if(q.indexOf("blanc")>=0||q.indexOf("ivoire")>=0) extraRules += "COULEUR: Privilegier les tenues avec pieces blanches ou ivoire dominantes.\n";
+  if(q.indexOf("bleu")>=0||q.indexOf("marine")>=0) extraRules += "COULEUR: Privilegier les tenues dans les tons bleus (cobalt, marine, ciel).\n";
+  if(q.indexOf("beige")>=0||q.indexOf("camel")>=0) extraRules += "COULEUR: Privilegier les tenues dans les tons neutres chauds (beige, camel, ivoire).\n";
+  if(q.indexOf("vert")>=0) extraRules += "COULEUR: Privilegier les tenues avec pieces vertes.\n";
+  if(q.indexOf("fleur")>=0||q.indexOf("floral")>=0||q.indexOf("imprime")>=0) extraRules += "MOTIF: Privilegier les tenues avec imprim\u00E9s floraux ou graphiques.\n";
+
   var prompt = "Tu es CLAIA, personal shopper expert pour Sandro Paris.\n"+
     "Ta mission: recommander les tenues les PLUS ADAPTEES a la demande en tenant compte du style ET de la praticite.\n\n"+
     "DEMANDE: \""+query+"\"\n\n"+
-    (extraRules ? "REGLES OBLIGATOIRES POUR CETTE DEMANDE:\n"+extraRules+"\n" : "")+
+    (extraRules ? "REGLES ABSOLUMENT OBLIGATOIRES - A RESPECTER STRICTEMENT:\n"+extraRules+"\n" : "")+
     "PROFIL STYLISTIQUE DE L'UTILISATRICE:\n"+
     "- Elle prefere TOUJOURS la couleur forte sur la base neutre (vert emeraude, cobalt, vichy) plutot que le look neutre safe\n"+
     "- Elle habille vers le bas: polo > blazer au bureau, blouson denim > robe formelle en soiree casual, baskets > mocassins formels en voyage\n"+
@@ -851,7 +974,8 @@ function claudeSearch(query){
     "- Couleur forte = toujours privilegier si disponible et coherente avec l'occasion\n\n"+
     "CATALOGUE (format: id|nom|description|occasion|styles|pieces|chaussures):\n"+
     catalogue+"\n\n"+
-    "Selectionne les 5 tenues les plus pertinentes. Si une tenue est incompatible avec la demande (ex: baskets pour soiree dansante), elle ne doit PAS apparaitre.\n"+
+    "IMPORTANT: Respecte ABSOLUMENT les filtres de pieces (jupe/pantalon/robe etc) - c'est non negociable.\n"+
+    "Selectionne les 5 tenues les plus pertinentes. Si une tenue ne contient pas la piece demandee, elle ne doit PAS apparaitre.\n"+
     "Reponds UNIQUEMENT en JSON valide, sans markdown, sans backticks:\n"+
     '{"ranking":[id1,id2,id3,id4,id5],"explanation":"2 phrases: pourquoi ces tenues et pourquoi elles sont adaptees a la situation precisement"}';
 
