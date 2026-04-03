@@ -743,12 +743,19 @@ function renderPieces(){
 
 function renderR(){
   var r=ranked();
-  var best=r[0];
+  // If a specific outfit is forced (e.g. from cinema click), use it
+  var best = null;
+  if(S.forcedOutfitId){
+    best = outfits.find(function(o){return o.id===S.forcedOutfitId;});
+  }
+  if(!best) best = r[0];
   S.outfitId=best.id;
   S.sel={top:0,bot:0,sho:0};
   S.lastKey="top";
   document.getElementById("ctx-txt").innerHTML=ctxText();
-  document.getElementById("r-badge").textContent="Notre recommandation pour vous";
+  var badge = S.forcedBadge || "Notre recommandation pour vous";
+  S.forcedBadge = null;
+  document.getElementById("r-badge").textContent=badge;
   document.getElementById("r-name").textContent=best.name;
   document.getElementById("r-sub").textContent=best.sub;
   setMannImg(mainImg(best));
@@ -1208,7 +1215,7 @@ document.getElementById("srch").onkeydown=function(e){
 };
 document.getElementById("gen-btn").onclick=function(){S.search=document.getElementById("srch").value;showTab("r");};
 document.getElementById("refine").onclick=function(){showTab("d");};
-document.getElementById("reset-btn").onclick=function(){document.querySelectorAll(".chip").forEach(function(c){c.classList.remove("on");});S.styles=[];S.occ="all";document.getElementById("sel-occ").value="all";};
+document.getElementById("reset-btn").onclick=function(){document.querySelectorAll(".chip").forEach(function(c){c.classList.remove("on");});S.styles=[];S.occ="all";S.forcedOutfitId=null;document.getElementById("sel-occ").value="all";};
 document.getElementById("cin-back").onclick=function(){showTab("d");};
 document.getElementById("cin-gen").onclick=function(){S.search=document.getElementById("srch").value;showTab("r");};
 document.getElementById("budget").oninput=function(){document.getElementById("bval").textContent="\u20AC"+this.value;};
@@ -1243,9 +1250,12 @@ document.getElementById("cin-grid").onclick=function(e){
     if(filmName.indexOf(key)>=0) outfitId = cinemaToOutfit[key];
   });
   if(outfitId){
-    var outfit = outfits.find(function(o){return o.id===outfitId;});
-    if(outfit){
-      S.outfitId=outfit.id;S.sel={top:0,bot:0,sho:0};S.lastKey="top";
+    S.forcedOutfitId = outfitId;
+    S.forcedBadge = "Inspir\u00E9 de "+filmName;
+    showTab("r");
+    setTimeout(function(){ S.forcedOutfitId = null; }, 200);
+  }
+};S.lastKey="top";
       document.getElementById("r-badge").textContent="Inspir\u00E9 de "+filmName;
       document.getElementById("r-name").textContent=outfit.name;
       document.getElementById("r-sub").textContent=outfit.sub;
